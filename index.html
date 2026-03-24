@@ -1,48 +1,77 @@
 <!DOCTYPE html>
-<!-- saved from url=(0103)https://tess-workflows-files.storage.googleapis.com/fd1f91ad082765145bc4902dce0ebf1683b35de9/index.html -->
-<html lang="pt-br"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tá na Mão! — Comida de verdade</title>
+<title>Tá na Mão! — Praticidade e Saúde</title>
+
+<!-- Fonte Premium do Google Fonts (Moderna e forte, parecida com a da logo) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+
 <style>
+  :root {
+    --verde-base: #3C6E47; /* Tom de verde extraído da sua logo */
+    --verde-escuro: #2D5235;
+    --dourado: #C9A86A; /* Dourado premium */
+    --dourado-hover: #b89758;
+    --fundo: #f4f6f4;
+    --texto: #1a1a1a;
+  }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: #f2f4f2;
-    color: #1a1a1a;
+    font-family: 'Outfit', sans-serif;
+    background: var(--fundo);
+    color: var(--texto);
   }
+
+  /* ── BARRA DE USUÁRIO LOGADO ── */
+  #auth-bar {
+    background: #111;
+    color: var(--dourado);
+    text-align: center;
+    padding: 8px;
+    font-size: 0.85em;
+    font-weight: 600;
+    display: none;
+  }
+  #auth-bar a { color: #fff; cursor: pointer; text-decoration: underline; margin-left: 10px; font-weight: 400; }
 
   /* ── HEADER ── */
   header {
-    background: #2e7d32;
+    background: var(--verde-base);
     padding: 36px 20px 30px;
     text-align: center;
     color: white;
+    border-bottom: 4px solid var(--dourado);
   }
   header img.logo {
-    width: 110px;
-    height: 110px;
-    border-radius: 22px;
+    width: 120px;
+    height: 120px;
+    border-radius: 26px; /* Ajuste suave nos cantos, combinando com os detalhes pretos */
     display: block;
-    margin: 0 auto 14px;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+    margin: 0 auto 16px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
   }
   header h1 {
-    font-size: 2em;
+    font-size: 2.2em;
     font-weight: 800;
+    color: var(--dourado);
     letter-spacing: 0.5px;
     margin-bottom: 4px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
   }
   header .slogan {
-    font-size: 1em;
-    opacity: 0.88;
-    font-weight: 500;
-    margin-bottom: 10px;
+    font-size: 1.05em;
+    font-weight: 600;
+    margin-bottom: 12px;
   }
   header p {
-    font-size: 0.88em;
-    opacity: 0.78;
+    font-size: 0.9em;
+    opacity: 0.9;
     max-width: 440px;
     margin: 0 auto 16px;
     line-height: 1.5;
@@ -55,13 +84,13 @@
     margin-top: 4px;
   }
   .badge {
-    background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.3);
-    color: white;
+    background: rgba(0,0,0,0.2);
+    border: 1px solid var(--dourado);
+    color: var(--dourado);
     font-size: 0.75em;
     padding: 5px 12px;
     border-radius: 20px;
-    font-weight: 500;
+    font-weight: 600;
   }
 
   /* ── CONTAINER ── */
@@ -77,15 +106,19 @@
     border-radius: 14px;
     padding: 24px;
     margin-bottom: 16px;
-    box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
   }
   .section h2 {
-    font-size: 1.05em;
-    font-weight: 700;
-    color: #2e7d32;
-    margin-bottom: 18px;
+    font-size: 1.2em;
+    font-weight: 800;
+    color: var(--dourado);
+    background: var(--verde-base);
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 8px;
+    margin-bottom: 20px;
     text-transform: uppercase;
-    letter-spacing: 0.6px;
+    letter-spacing: 0.5px;
   }
 
   /* ── CARDÁPIO ── */
@@ -93,252 +126,182 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 0;
-    border-bottom: 1px solid #f0f0f0;
+    padding: 14px 0;
+    border-bottom: 1px solid #eee;
   }
   .product:last-child { border-bottom: none; }
   .product-info { flex: 1; }
-  .product-info .p-nome { font-weight: 600; font-size: 0.95em; }
-  .product-info .p-desc { font-size: 0.78em; color: #888; margin-top: 2px; }
-  .product-info .p-preco { font-size: 0.88em; font-weight: 700; color: #2e7d32; margin-top: 3px; }
+  .product-info .p-nome { font-weight: 800; font-size: 1.05em; color: var(--verde-base); }
+  .product-info .p-desc { font-size: 0.8em; color: #666; margin-top: 4px; font-weight: 400; }
+  .product-info .p-preco { font-size: 0.95em; font-weight: 800; color: #333; margin-top: 6px; }
 
   .qty-wrap {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
   }
   .qty-wrap button {
-    width: 30px; height: 30px;
-    border-radius: 50%;
-    background: #2e7d32;
-    color: white;
-    border: none;
-    font-size: 1.1em;
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: var(--fundo);
+    color: var(--texto);
+    border: 2px solid #ddd;
+    font-size: 1.2em;
+    font-weight: 600;
     cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    padding: 0;
-    flex-shrink: 0;
   }
-  .qty-wrap button:hover { background: #1b5e20; }
+  .qty-wrap button:hover { background: #eee; }
   .qty-wrap .qty-num {
-    min-width: 22px;
+    min-width: 24px;
     text-align: center;
-    font-weight: 700;
-    font-size: 0.95em;
+    font-weight: 800;
+    font-size: 1em;
   }
 
   /* ── COMO FUNCIONA ── */
-  .steps {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
+  .steps { display: flex; gap: 12px; flex-wrap: wrap; }
   .step {
-    flex: 1;
-    min-width: 180px;
-    background: #f1f8e9;
+    flex: 1; min-width: 180px;
+    background: var(--fundo);
+    border: 1px solid #eaeaea;
     border-radius: 10px;
-    padding: 16px;
-    text-align: center;
+    padding: 16px; text-align: center;
   }
   .step-num {
-    width: 32px; height: 32px;
-    background: #2e7d32;
-    color: white;
+    width: 36px; height: 36px;
+    background: var(--dourado);
+    color: var(--verde-escuro);
     border-radius: 50%;
-    font-weight: 800;
-    font-size: 0.9em;
+    font-weight: 800; font-size: 1em;
     display: flex; align-items: center; justify-content: center;
     margin: 0 auto 10px;
   }
-  .step p { font-size: 0.85em; color: #444; line-height: 1.4; }
-  .step strong { font-size: 0.88em; display: block; margin-bottom: 4px; }
+  .step p { font-size: 0.85em; color: #555; line-height: 1.4; }
+  .step strong { font-size: 0.9em; display: block; margin-bottom: 4px; color: var(--verde-base); }
 
   /* ── PAGAMENTO ── */
   .pag-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 16px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px;
   }
   .pag-item {
-    border: 2px solid #e0e0e0;
-    border-radius: 10px;
-    padding: 12px;
-    cursor: pointer;
-    transition: all 0.15s;
-    text-align: center;
-    position: relative;
+    border: 2px solid #ddd; border-radius: 10px; padding: 14px;
+    cursor: pointer; transition: all 0.2s; text-align: center;
   }
-  .pag-item:hover { border-color: #66bb6a; background: #f9fdf9; }
-  .pag-item.ativo { border-color: #2e7d32; background: #f1f8e9; }
-  .pag-item .pag-nome { font-weight: 700; font-size: 0.88em; }
-  .pag-item .pag-sub { font-size: 0.73em; color: #888; margin-top: 2px; }
+  .pag-item:hover { border-color: var(--dourado); background: #fdfaf3; }
+  .pag-item.ativo { border-color: var(--verde-base); background: #f0f7f2; }
+  .pag-item .pag-nome { font-weight: 800; font-size: 0.95em; color: var(--verde-base);}
+  .pag-item .pag-sub { font-size: 0.75em; color: #777; margin-top: 4px; }
   .tag-desc {
-    background: #2e7d32; color: white;
-    font-size: 0.65em; padding: 2px 7px;
-    border-radius: 20px; margin-top: 5px;
-    display: inline-block;
-  }
-  .aviso {
-    background: #fff8e1;
-    border-left: 3px solid #f9a825;
-    padding: 10px 14px;
-    border-radius: 6px;
-    font-size: 0.82em;
-    color: #5d4037;
+    background: var(--dourado); color: var(--verde-escuro);
+    font-size: 0.7em; padding: 3px 8px; font-weight: 800;
+    border-radius: 20px; margin-top: 6px; display: inline-block;
   }
 
   /* ── RESUMO ── */
-  #resumo-lista { font-size: 0.88em; line-height: 1.9; color: #333; }
-  #resumo-lista .r-vazio { color: #bbb; font-style: italic; }
+  #resumo-lista { font-size: 0.9em; line-height: 1.9; color: #333; font-weight: 600; }
+  #resumo-lista .r-vazio { color: #bbb; font-weight: 400; font-style: italic; }
   .resumo-total {
-    margin-top: 12px;
-    font-size: 1.05em;
-    font-weight: 800;
-    color: #2e7d32;
-    padding-top: 10px;
-    border-top: 1px solid #eee;
+    margin-top: 12px; font-size: 1.2em; font-weight: 800; color: var(--verde-base);
+    padding-top: 12px; border-top: 2px dashed #eee;
   }
-
-  /* ── ENTREGA ── */
-  .entrega-grid {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-  .entrega-box {
-    flex: 1;
-    min-width: 200px;
-    background: #f1f8e9;
-    border-radius: 10px;
-    padding: 14px 16px;
-    font-size: 0.85em;
-    line-height: 1.5;
-  }
-  .entrega-box strong { display: block; color: #2e7d32; margin-bottom: 4px; font-size: 0.9em; }
 
   /* ── CTA FINAL ── */
   .cta-section {
-    background: #2e7d32;
-    border-radius: 14px;
-    padding: 32px 24px;
-    text-align: center;
-    margin-bottom: 16px;
+    background: linear-gradient(135deg, var(--verde-base), var(--verde-escuro));
+    border-radius: 14px; padding: 32px 24px;
+    text-align: center; margin-bottom: 16px;
+    box-shadow: 0 4px 15px rgba(60, 110, 71, 0.3);
   }
-  .cta-section h2 {
-    color: white;
-    font-size: 1.2em;
-    margin-bottom: 8px;
-  }
-  .cta-section p {
-    color: rgba(255,255,255,0.82);
-    font-size: 0.88em;
-    margin-bottom: 22px;
-  }
+  .cta-section h2 { background: transparent; color: var(--dourado); margin-bottom: 8px; padding: 0;}
+  .cta-section p { color: white; font-size: 0.9em; margin-bottom: 22px; }
   .btn-pedir {
     display: inline-block;
-    background: white;
-    color: #2e7d32;
-    font-weight: 800;
-    font-size: 1em;
-    padding: 14px 36px;
-    border-radius: 40px;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.18);
-    transition: transform 0.15s, box-shadow 0.15s;
-    width: 100%;
-    max-width: 320px;
+    background: var(--dourado);
+    color: var(--verde-escuro);
+    font-weight: 800; font-size: 1.1em;
+    padding: 16px 40px; border-radius: 40px; border: none;
+    cursor: pointer; transition: all 0.2s;
+    width: 100%; max-width: 340px;
+    box-shadow: 0 4px 14px rgba(201, 168, 106, 0.4);
+    font-family: 'Outfit', sans-serif;
   }
-  .btn-pedir:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.22);
-  }
+  .btn-pedir:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(201, 168, 106, 0.6); background: #d6b77c; }
 
   /* ── MODAL ── */
   .overlay {
-    display: none;
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,0.52);
-    z-index: 999;
-    align-items: center;
-    justify-content: center;
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+    z-index: 999; align-items: center; justify-content: center; padding: 10px;
   }
   .overlay.on { display: flex; }
   .modal {
-    background: white;
-    border-radius: 16px;
-    padding: 28px 24px;
-    width: 92%;
-    max-width: 440px;
-    position: relative;
-    box-shadow: 0 12px 40px rgba(0,0,0,0.22);
+    background: white; border-radius: 20px; padding: 30px 24px;
+    width: 100%; max-width: 440px; position: relative;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
   }
-  .modal h3 { color: #2e7d32; font-size: 1.1em; margin-bottom: 16px; }
-  .modal .m-resumo { font-size: 0.85em; line-height: 1.8; margin-bottom: 8px; color: #333; }
-  .modal .m-total { font-size: 1em; font-weight: 800; color: #2e7d32; margin-bottom: 18px; }
+  .modal h3 { color: var(--verde-base); font-size: 1.2em; margin-bottom: 16px; font-weight: 800;}
+  .modal .m-resumo { font-size: 0.85em; line-height: 1.8; margin-bottom: 10px; color: #444; }
+  .modal .m-total { font-size: 1.1em; font-weight: 800; color: var(--verde-base); margin-bottom: 20px; }
+  
+  /* GRID DE CADASTRO */
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
   .modal input {
-    width: 100%;
-    padding: 11px 14px;
-    border: 1.5px solid #ddd;
-    border-radius: 8px;
-    font-size: 0.88em;
-    margin-bottom: 10px;
-    outline: none;
+    width: 100%; padding: 12px 14px; border: 2px solid #eee;
+    border-radius: 10px; font-size: 0.9em; font-family: 'Outfit', sans-serif;
+    outline: none; transition: border 0.2s;
   }
-  .modal input:focus { border-color: #2e7d32; }
-  .btn-wpp {
-    width: 100%;
-    background: #25d366;
-    color: white;
-    border: none;
+  .modal input:focus { border-color: var(--dourado); }
+  .input-full { grid-column: span 2; }
+
+  #area-logado {
+    background: #fdfaf3;
+    border: 1px solid var(--dourado);
     padding: 14px;
-    border-radius: 40px;
-    font-size: 0.95em;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background 0.15s;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  #area-logado p { font-size: 0.9em; color: var(--verde-base); font-weight: 600;}
+  #area-logado a { font-size: 0.8em; color: #888; text-decoration: underline; cursor: pointer; display: block; margin-top: 8px;}
+
+  .btn-wpp {
+    width: 100%; background: #25d366; color: white; border: none;
+    padding: 16px; border-radius: 40px; font-size: 1em; font-weight: 800;
+    cursor: pointer; transition: background 0.2s; font-family: 'Outfit', sans-serif;
   }
   .btn-wpp:hover { background: #1ebe5d; }
   .btn-fechar {
-    position: absolute;
-    top: 12px; right: 16px;
-    background: none;
-    border: none;
-    font-size: 1.3em;
-    cursor: pointer;
-    color: #aaa;
-    padding: 0;
-    width: auto;
+    position: absolute; top: 16px; right: 20px; background: none; border: none;
+    font-size: 1.4em; cursor: pointer; color: #aaa;
   }
-
-  footer {
-    text-align: center;
-    padding: 20px 16px;
-    font-size: 0.75em;
-    color: #bbb;
-  }
+  
+  footer { text-align: center; padding: 20px; font-size: 0.8em; color: #aaa; }
 
   @media (max-width: 520px) {
-    header h1 { font-size: 1.6em; }
-    .pag-grid { grid-template-columns: 1fr 1fr; }
-    .steps { flex-direction: column; }
+    header h1 { font-size: 1.8em; }
+    .pag-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
 
+<!-- BARRA USUÁRIO CONHECIDO -->
+<div id="auth-bar"></div>
+
 <!-- HEADER -->
 <header>
-  <img src="TanaMao_Logo.jpg" class="logo" alt="Tá na Mão!">
-  
-  <div class="slogan">Comida de verdade. Prática e saudável.</div>
-  <p>Pratos prontos e congelados com sabor caseiro para resolver sua alimentação da semana.</p>
+  <img src="logo.png" class="logo" alt="Tá na Mão!">
+  <h1>Tá na Mão!</h1>
+  <div class="slogan">Praticidade & Saúde</div>
+  <p>Pratos prontos e congelados com sabor caseiro para resolver sua semana sem complicações.</p>
   <div class="badges">
     <span class="badge">✔ Sem conservantes</span>
     <span class="badge">✔ Produção caseira</span>
-    <span class="badge">✔ Praticidade no dia a dia</span>
   </div>
 </header>
 
@@ -346,175 +309,190 @@
 
   <!-- CARDÁPIO -->
   <div class="section">
-    <h2>🍽 Cardápio</h2>
-
+    <h2>Nosso Cardápio</h2>
+    
     <div class="product">
       <div class="product-info">
         <div class="p-nome">Panqueca</div>
-        <div class="p-desc">Recheada, leve e equilibrada. Nutritiva e prática.</div>
+        <div class="p-desc">Recheada, leve e equilibrada.</div>
         <div class="p-preco">R$ 18,00</div>
       </div>
       <div class="qty-wrap">
-        <button onclick="qty(&#39;p1&#39;,-1)">−</button>
-        <span class="qty-num" id="p1">0</span>
-        <button onclick="qty(&#39;p1&#39;,1)">+</button>
+        <button onclick="qty('p1',-1)">−</button><span class="qty-num" id="p1">0</span><button onclick="qty('p1',1)">+</button>
       </div>
     </div>
 
     <div class="product">
       <div class="product-info">
-        <div class="p-nome">Kibe</div>
-        <div class="p-desc">Assado, com recheio e rico em proteína.</div>
+        <div class="p-nome">Kibe Assado recheado</div>
+        <div class="p-desc">Assado, suculento e rico em proteína.</div>
         <div class="p-preco">R$ 20,00</div>
       </div>
       <div class="qty-wrap">
-        <button onclick="qty(&#39;p2&#39;,-1)">−</button>
-        <span class="qty-num" id="p2">0</span>
-        <button onclick="qty(&#39;p2&#39;,1)">+</button>
+        <button onclick="qty('p2',-1)">−</button><span class="qty-num" id="p2">0</span><button onclick="qty('p2',1)">+</button>
       </div>
     </div>
 
     <div class="product">
       <div class="product-info">
         <div class="p-nome">Suflê de Legumes</div>
-        <div class="p-desc">Leve, saudável e perfeito para o dia a dia.</div>
+        <div class="p-desc">Leve, saudável e perfeito para a rotina.</div>
         <div class="p-preco">R$ 17,00</div>
       </div>
       <div class="qty-wrap">
-        <button onclick="qty(&#39;p3&#39;,-1)">−</button>
-        <span class="qty-num" id="p3">0</span>
-        <button onclick="qty(&#39;p3&#39;,1)">+</button>
+        <button onclick="qty('p3',-1)">−</button><span class="qty-num" id="p3">0</span><button onclick="qty('p3',1)">+</button>
       </div>
     </div>
 
     <div class="product">
       <div class="product-info">
         <div class="p-nome">Bolo de Banana</div>
-        <div class="p-desc">Caseiro, sem excesso de açúcar. Ótimo para o café.</div>
+        <div class="p-desc">Caseiro, sem açúcar. Ótimo para o café.</div>
         <div class="p-preco">R$ 22,00</div>
       </div>
       <div class="qty-wrap">
-        <button onclick="qty(&#39;p4&#39;,-1)">−</button>
-        <span class="qty-num" id="p4">0</span>
-        <button onclick="qty(&#39;p4&#39;,1)">+</button>
+        <button onclick="qty('p4',-1)">−</button><span class="qty-num" id="p4">0</span><button onclick="qty('p4',1)">+</button>
       </div>
     </div>
 
     <div class="product">
       <div class="product-info">
         <div class="p-nome">Combo Degustação</div>
-        <div class="p-desc">Mini porções para experimentar o cardápio completo.</div>
+        <div class="p-desc">Mini porções para experimentar tudo!</div>
         <div class="p-preco">R$ 35,00</div>
       </div>
       <div class="qty-wrap">
-        <button onclick="qty(&#39;p5&#39;,-1)">−</button>
-        <span class="qty-num" id="p5">0</span>
-        <button onclick="qty(&#39;p5&#39;,1)">+</button>
+        <button onclick="qty('p5',-1)">−</button><span class="qty-num" id="p5">0</span><button onclick="qty('p5',1)">+</button>
       </div>
     </div>
-
   </div>
 
   <!-- COMO FUNCIONA -->
   <div class="section">
-    <h2>⚡ Como funciona</h2>
+    <h2>Como funciona</h2>
     <div class="steps">
       <div class="step">
         <div class="step-num">1</div>
-        <strong>Escolha os produtos</strong>
-        <p>Selecione os itens e quantidades desejados.</p>
+        <strong>Escolha</strong>
+        <p>Selecione as marmitas.</p>
       </div>
       <div class="step">
         <div class="step-num">2</div>
-        <strong>Receba congelado</strong>
-        <p>Entregamos em até 48h direto na sua porta.</p>
+        <strong>Receba</strong>
+        <p>Entregamos congelado em até 48h.</p>
       </div>
       <div class="step">
         <div class="step-num">3</div>
-        <strong>Aqueça e consuma</strong>
-        <p>Na hora que quiser, sem stress e sem desperdício.</p>
+        <strong>Aqueça</strong>
+        <p>Tá na Mão! Pronto em minutos.</p>
       </div>
     </div>
   </div>
 
   <!-- PAGAMENTO -->
   <div class="section">
-    <h2>💳 Pagamento</h2>
+    <h2>Pagamento</h2>
     <div class="pag-grid">
-      <div class="pag-item" id="pag-pix" onclick="selecionarPag(&#39;pix&#39;)">
+      <div class="pag-item" id="pag-pix" onclick="selecionarPag('pix')">
         <div class="pag-nome">Pix</div>
-        <div class="pag-sub">Transferência instantânea</div>
         <span class="tag-desc">10% OFF</span>
       </div>
-      <div class="pag-item" id="pag-debito" onclick="selecionarPag(&#39;debito&#39;)">
+      <div class="pag-item" id="pag-debito" onclick="selecionarPag('debito')">
         <div class="pag-nome">Débito</div>
-        <div class="pag-sub">Cartão de débito</div>
         <span class="tag-desc">10% OFF</span>
       </div>
-      <div class="pag-item" id="pag-credito" onclick="selecionarPag(&#39;credito&#39;)">
+      <div class="pag-item" id="pag-credito" onclick="selecionarPag('credito')">
         <div class="pag-nome">Crédito</div>
-        <div class="pag-sub">Cartão de crédito</div>
       </div>
-      <div class="pag-item" id="pag-vale" onclick="selecionarPag(&#39;vale&#39;)">
-        <div class="pag-nome">Vale</div>
-        <div class="pag-sub">Alimentação / Refeição</div>
+      <div class="pag-item" id="pag-vale" onclick="selecionarPag('vale')">
+        <div class="pag-nome">Vale Alimentação</div>
       </div>
     </div>
-    <div class="aviso">⚠️ <strong>Pedido reservado imediatamente e confirmado após o pagamento.</strong></div>
+    <div style="font-size: 0.85em; color: #888; text-align: center; margin-top: 5px;">
+      Pedido confirmado após o pagamento. Horário de entrega a combinar.
+    </div>
   </div>
 
   <!-- RESUMO -->
   <div class="section">
-    <h2>🛒 Seu Pedido</h2>
+    <h2>Seu Pedido</h2>
     <div id="resumo-lista"><span class="r-vazio">Nenhum item selecionado ainda.</span></div>
     <div class="resumo-total" id="resumo-total" style="display:none;"></div>
   </div>
 
-  <!-- ENTREGA -->
-  <div class="section">
-    <h2>🚚 Entrega</h2>
-    <div class="entrega-grid">
-      <div class="entrega-box">
-        <strong>⏱ Prazo</strong>
-        Entrega em até 48 horas após a confirmação do pagamento.
-      </div>
-      <div class="entrega-box">
-        <strong>📅 Horário</strong>
-        Combinado diretamente após a confirmação do pedido.
-      </div>
-    </div>
-  </div>
-
   <!-- CTA FINAL -->
   <div class="cta-section">
-    <h2>Resolva sua alimentação da semana agora.</h2>
-    <p>Comida saudável, prática e com gosto de casa — entregue onde você estiver.</p>
-    <button class="btn-pedir" onclick="abrirModal()">Fazer pedido →</button>
+    <h2>Resolva sua semana agora</h2>
+    <p>Comida com gosto de casa, entregue na sua rotina.</p>
+    <button class="btn-pedir" onclick="abrirModal()">Finalizar Pedido →</button>
   </div>
 
 </div>
 
-<footer>Tá na Mão! © 2025 · Comida de verdade, feita com cuidado.</footer>
+<footer>Tá na Mão! © 2025 · Alimentação Inteligente.</footer>
 
 <!-- MODAL -->
 <div class="overlay" id="overlay">
   <div class="modal">
     <button class="btn-fechar" onclick="fecharModal()">✕</button>
-    <h3>📋 Confirmar Pedido</h3>
+    <h3>📋 Confirmar e Enviar</h3>
+    
     <div class="m-resumo" id="m-resumo"></div>
     <div class="m-total" id="m-total"></div>
-    <input type="text" id="m-nome" placeholder="Seu nome completo">
-    <input type="tel" id="m-tel" placeholder="Seu telefone / WhatsApp">
-    <button class="btn-wpp" onclick="enviarWpp()">📲 Enviar pedido pelo WhatsApp</button>
+
+    <!-- AREA LOGADO OU CADASTRO -->
+    <div id="area-logado" style="display:none;">
+      <p>Pedido em nome de: <span id="txt-nome-logado"></span></p>
+      <a onclick="limparCadastro()">Não é você? Trocar os dados.</a>
+    </div>
+
+    <div id="area-cadastro" class="form-grid">
+      <input type="text" id="m-nome" class="input-full" placeholder="Seu Nome Completo">
+      <input type="tel" id="m-tel" class="input-full" placeholder="WhatsApp (com DDD)">
+      <input type="number" id="m-idade" placeholder="Sua Idade">
+      <input type="text" id="m-prof" placeholder="Profissão">
+    </div>
+
+    <button class="btn-wpp" onclick="enviarWpp()">Pelo WhatsApp 📲</button>
   </div>
 </div>
 
 <script>
+  // SISTEMA DE CRM BÁSICO (MEMÓRIA)
+  let clienteAtual = JSON.parse(localStorage.getItem('tanamao_cliente')) || null;
+
+  function checarLogin() {
+    const bar = document.getElementById('auth-bar');
+    if (clienteAtual) {
+      bar.innerHTML = `Bem-vindo de volta, <strong>${clienteAtual.nome.split(' ')[0]}</strong>! 
+                       <a onclick="limparCadastro()">Sair</a>`;
+      bar.style.display = 'block';
+    } else {
+      bar.style.display = 'none';
+    }
+  }
+
+  function limparCadastro() {
+    localStorage.removeItem('tanamao_cliente');
+    clienteAtual = null;
+    checarLogin();
+    document.getElementById('area-logado').style.display = 'none';
+    document.getElementById('area-cadastro').style.display = 'grid';
+    // Limpa campos
+    document.getElementById('m-nome').value = '';
+    document.getElementById('m-tel').value = '';
+    document.getElementById('m-idade').value = '';
+    document.getElementById('m-prof').value = '';
+  }
+
+  // INICIA CHECAGEM
+  checarLogin();
+
   const PRODS = [
-    { id:'p1', nome:'Panqueca',         preco:18 },
-    { id:'p2', nome:'Kibe',             preco:20 },
+    { id:'p1', nome:'Panqueca', preco:18 },
+    { id:'p2', nome:'Kibe Assado', preco:20 },
     { id:'p3', nome:'Suflê de Legumes', preco:17 },
-    { id:'p4', nome:'Bolo de Banana',   preco:22 },
+    { id:'p4', nome:'Bolo de Banana', preco:22 },
     { id:'p5', nome:'Combo Degustação', preco:35 }
   ];
   const qtds = { p1:0, p2:0, p3:0, p4:0, p5:0 };
@@ -554,35 +532,41 @@
     }
 
     const { sub, desc, total } = calcTotal();
-    let html = ativos.map(p =>
-      `<div>${p.nome} × ${qtds[p.id]} = ${fmt(qtds[p.id] * p.preco)}</div>`
-    ).join('');
+    let html = ativos.map(p => `<div>${p.nome} × ${qtds[p.id]} = ${fmt(qtds[p.id] * p.preco)}</div>`).join('');
+    
     if (desc > 0) {
-      html += `<div style="color:#888;font-size:.85em;">Subtotal: ${fmt(sub)}</div>`;
-      html += `<div style="color:#2e7d32;font-size:.85em;">Desconto (10%): − ${fmt(sub * desc)}</div>`;
+      html += `<div style="color:#888;font-size:.85em;margin-top:5px;">Subtotal: ${fmt(sub)}</div>`;
+      html += `<div style="color:var(--verde-base);font-size:.85em;font-weight:800;">Desconto (10%): − ${fmt(sub * desc)}</div>`;
     }
     rl.innerHTML = html;
     rt.style.display = 'block';
-    rt.textContent = 'Total: ' + fmt(total);
+    rt.textContent = 'Total a pagar: ' + fmt(total);
   }
 
   function abrirModal() {
     const ativos = PRODS.filter(p => qtds[p.id] > 0);
-    if (!ativos.length) { alert('Selecione pelo menos um item.'); return; }
-    if (!pagSel) { alert('Selecione uma forma de pagamento.'); return; }
+    if (!ativos.length) { alert('Selecione pelo menos um item da marmita.'); return; }
+    if (!pagSel) { alert('Faltou selecionar a forma de pagamento.'); return; }
 
     const { sub, desc, total } = calcTotal();
-    const nomesPag = { pix:'Pix (10% OFF)', debito:'Débito (10% OFF)', credito:'Crédito', vale:'Vale Alimentação/Refeição' };
+    const nomesPag = { pix:'Pix', debito:'Débito', credito:'Crédito', vale:'Vale Alimentação' };
 
-    let r = ativos.map(p => `• ${p.nome} × ${qtds[p.id]} = ${fmt(qtds[p.id]*p.preco)}`).join('<br>');
-    r += `<br><br><strong>Pagamento:</strong> ${nomesPag[pagSel]}`;
-    if (desc > 0) {
-      r += `<br><span style="color:#888;">Subtotal: ${fmt(sub)}</span>`;
-      r += `<br><span style="color:#2e7d32;">Desconto: − ${fmt(sub*desc)}</span>`;
-    }
-
+    let r = ativos.map(p => `• ${p.nome} × ${qtds[p.id]}`).join('<br>');
+    r += `<br><br><strong>Pagamento via ${nomesPag[pagSel]}</strong>`;
+    
     document.getElementById('m-resumo').innerHTML = r;
     document.getElementById('m-total').textContent = 'Total: ' + fmt(total);
+    
+    // Logica visual de cadastro/logado
+    if (clienteAtual) {
+      document.getElementById('area-cadastro').style.display = 'none';
+      document.getElementById('area-logado').style.display = 'block';
+      document.getElementById('txt-nome-logado').textContent = clienteAtual.nome;
+    } else {
+      document.getElementById('area-cadastro').style.display = 'grid';
+      document.getElementById('area-logado').style.display = 'none';
+    }
+
     document.getElementById('overlay').classList.add('on');
   }
 
@@ -591,40 +575,49 @@
   }
 
   function enviarWpp() {
-    const nome = document.getElementById('m-nome').value.trim();
-    const tel  = document.getElementById('m-tel').value.trim();
-    if (!nome || !tel) { alert('Preencha seu nome e telefone.'); return; }
+    let cliente = clienteAtual;
+
+    // Se não tiver salvo, pega os dados digitados
+    if (!cliente) {
+      const nome = document.getElementById('m-nome').value.trim();
+      const tel = document.getElementById('m-tel').value.trim();
+      const idade = document.getElementById('m-idade').value.trim();
+      const prof = document.getElementById('m-prof').value.trim();
+
+      if (!nome || !tel || !idade || !prof) {
+        alert('Por favor, preencha todos os campos do seu cadastro rápido!');
+        return;
+      }
+      
+      // Salva na memória do celular do usuario
+      cliente = { nome, tel, idade, prof };
+      localStorage.setItem('tanamao_cliente', JSON.stringify(cliente));
+      clienteAtual = cliente; // Atualiza a variável global
+      checarLogin();
+    }
 
     const ativos = PRODS.filter(p => qtds[p.id] > 0);
     const { sub, desc, total } = calcTotal();
-    const nomesPag = { pix:'Pix (10% OFF)', debito:'Débito (10% OFF)', credito:'Crédito', vale:'Vale Alimentação/Refeição' };
+    const nomesPag = { pix:'Pix', debito:'Débito', credito:'Crédito', vale:'Vale Alimentação' };
 
-    let msg = `*Pedido — Tá na Mão!*
-
-`;
-    msg += `*Cliente:* ${nome}
-*Telefone:* ${tel}
-
-`;
-    msg += `*Itens:*
-`;
+    // Construção da Mensagem
+    let msg = `*Novo Pedido — Tá na Mão!* 🚀\n\n`;
+    msg += `*Cliente:* ${cliente.nome}\n`;
+    msg += `*Idade/Profissão:* ${cliente.idade} anos, ${cliente.prof}\n`;
+    msg += `*Telefone:* ${cliente.tel}\n\n`;
+    
+    msg += `*📦 Itens escolhidos:*\n`;
     ativos.forEach(p => {
-      msg += `• ${p.nome} × ${qtds[p.id]} = ${fmt(qtds[p.id]*p.preco)}
-`;
+      msg += `• ${qtds[p.id]}x ${p.nome} = ${fmt(qtds[p.id]*p.preco)}\n`;
     });
+    
     if (desc > 0) {
-      msg += `
-Subtotal: ${fmt(sub)}
-Desconto (10%): − ${fmt(sub*desc)}
-`;
+      msg += `\nSubtotal: ${fmt(sub)}\nDesconto: − ${fmt(sub*desc)}\n`;
     }
-    msg += `
-*Total: ${fmt(total)}*
-`;
-    msg += `*Pagamento:* ${nomesPag[pagSel]}
-
-`;
-    msg += `Aguardo confirmação para combinar a entrega. 🙏`;
+    
+    msg += `\n*✅ TOTAL A PAGAR: ${fmt(total)}*\n`;
+    msg += `*💳 Forma de Pagamento:* ${nomesPag[pagSel]}\n\n`;
+    msg += `Aguardo instruções para confirmar o pagamento e entrega! 🙏`;
 
     window.open('https://wa.me/5521980868730?text=' + encodeURIComponent(msg), '_blank');
   }
@@ -634,5 +627,6 @@ Desconto (10%): − ${fmt(sub*desc)}
   });
 </script>
 
+</body>
+</html>
 
-</body></html>
