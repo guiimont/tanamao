@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tá na Mão! — Praticidade e Saúde</title>
+<title>Tá na Mão! ÂÂ Praticidade e Saúde</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
@@ -47,6 +47,7 @@
   .section { background: #fff; border-radius: 14px; padding: 24px; margin-bottom: 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
   .section-title { font-size: 1.05em; font-weight: 800; color: var(--dourado); background: var(--verde); display: inline-block; padding: 6px 14px; border-radius: 8px; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.5px; }
 
+  /* SKELETON LOADING */
   .skeleton { background: linear-gradient(90deg, #eee 25%, #f5f5f5 50%, #eee 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: 8px; }
   @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
   .sk-product { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid #eee; gap: 12px; }
@@ -56,6 +57,7 @@
   .sk-preco { height: 16px; width: 30%; }
   .sk-right { width: 110px; height: 34px; flex-shrink: 0; }
 
+  /* PRODUTOS */
   .product { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid #eee; }
   .product:last-child { border-bottom: none; }
   .product-info { flex: 1; padding-right: 12px; }
@@ -70,12 +72,14 @@
   .erro-cardapio { text-align: center; padding: 24px; color: #c0392b; font-size: 0.9em; }
   .btn-retry { background: var(--verde); color: #fff; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-family: "Outfit", sans-serif; font-weight: 700; margin-top: 10px; }
 
+  /* COMO FUNCIONA */
   .steps { display: flex; gap: 12px; flex-wrap: wrap; }
   .step { flex: 1; min-width: 160px; background: var(--fundo); border: 1px solid #eaeaea; border-radius: 10px; padding: 18px; text-align: center; }
   .step-num { width: 36px; height: 36px; background: var(--dourado); color: var(--verde-escuro); border-radius: 50%; font-weight: 800; font-size: 1em; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; }
   .step strong { font-size: 0.9em; display: block; margin-bottom: 4px; color: var(--verde); }
   .step p { font-size: 0.82em; color: #666; line-height: 1.4; }
 
+  /* PAGAMENTO */
   .pag-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
   .pag-item { border: 2px solid #ddd; border-radius: 10px; padding: 14px; cursor: pointer; transition: all 0.2s; text-align: center; }
   .pag-item:hover { border-color: var(--dourado); background: #fdfaf3; }
@@ -85,16 +89,19 @@
   .tag-desc { background: var(--dourado); color: var(--verde-escuro); font-size: 0.7em; padding: 3px 9px; font-weight: 800; border-radius: 20px; margin-top: 6px; display: inline-block; }
   .pag-aviso { font-size: 0.8em; color: #aaa; text-align: center; margin-top: 4px; }
 
+  /* RESUMO */
   #resumo-lista { font-size: 0.9em; line-height: 1.9; color: #333; font-weight: 600; }
   .r-vazio { color: #ccc; font-weight: 400; font-style: italic; }
   .resumo-total { margin-top: 12px; font-size: 1.2em; font-weight: 800; color: var(--verde); padding-top: 12px; border-top: 2px dashed #eee; }
 
+  /* CTA */
   .cta-section { background: linear-gradient(135deg, var(--verde), var(--verde-escuro)); border-radius: 14px; padding: 36px 24px; text-align: center; margin-bottom: 16px; box-shadow: 0 4px 20px rgba(60,110,71,0.3); }
   .cta-section h2 { color: var(--dourado); margin-bottom: 8px; font-size: 1.35em; }
   .cta-section p { color: rgba(255,255,255,0.88); font-size: 0.9em; margin-bottom: 24px; }
   .btn-pedir { display: inline-block; background: var(--dourado); color: var(--verde-escuro); font-weight: 800; font-size: 1.15em; padding: 18px 44px; border-radius: 50px; border: none; cursor: pointer; width: 100%; max-width: 360px; font-family: "Outfit", sans-serif; box-shadow: 0 6px 18px rgba(201,168,106,0.45); transition: all 0.2s; }
   .btn-pedir:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(201,168,106,0.6); }
 
+  /* MODAL */
   .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 999; align-items: center; justify-content: center; padding: 12px; }
   .overlay.on { display: flex; }
   .modal { background: #fff; border-radius: 20px; padding: 32px 26px; width: 100%; max-width: 460px; position: relative; box-shadow: 0 16px 50px rgba(0,0,0,0.3); max-height: 92vh; overflow-y: auto; }
@@ -130,17 +137,453 @@
 
   footer { text-align: center; padding: 24px 16px; font-size: 0.78em; color: #bbb; }
 
+  @media (max-width: 520px) {
+    header h1 { font-size: 1.9em; }
+    .steps { flex-direction: column; }
+    .pag-grid { grid-template-columns: 1fr 1fr; }
+  }
 </style>
 </head>
 <body>
+
+<div id="auth-bar"></div>
 
 <header>
   <img src="TanaMao_Logo.jpg" class="logo" alt="Tá na Mão!">
   <div class="slogan">Praticidade & Saúde</div>
   <p>Pratos prontos e congelados com sabor caseiro para resolver sua semana sem complicações.</p>
+  <div class="badges">
+    <span class="badge">Sem conservantes</span>
+    <span class="badge">Produção caseira</span>
+    
+  </div>
 </header>
 
+<div class="container">
+
+  <!-- CARDÃ­ÂPIO DINÃ­ÂMICO -->
+  <div class="section" id="section-cardapio">
+    <span class="section-title">Nosso Cardápio</span>
+    <div id="produtos-container">
+      <!-- skeleton loading -->
+      <div class="sk-product">
+        <div class="sk-left">
+          <div class="skeleton sk-nome"></div>
+          <div class="skeleton sk-desc"></div>
+          <div class="skeleton sk-preco"></div>
+        </div>
+        <div class="skeleton sk-right"></div>
+      </div>
+      <div class="sk-product">
+        <div class="sk-left">
+          <div class="skeleton sk-nome"></div>
+          <div class="skeleton sk-desc"></div>
+          <div class="skeleton sk-preco"></div>
+        </div>
+        <div class="skeleton sk-right"></div>
+      </div>
+      <div class="sk-product">
+        <div class="sk-left">
+          <div class="skeleton sk-nome"></div>
+          <div class="skeleton sk-desc"></div>
+          <div class="skeleton sk-preco"></div>
+        </div>
+        <div class="skeleton sk-right"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMO FUNCIONA -->
+  <div class="section">
+    <span class="section-title">Como Funciona</span>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <strong>Escolha</strong>
+        <p>Monte seu pedido direto pelo site.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <strong>Pague</strong>
+        <p>Checkout seguro com Pix ou cartÃ£o.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <strong>Receba</strong>
+        <p>Entregamos congelado em até 48h.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <strong>Aqueça</strong>
+        <p>Tá na Mão! Pronto em minutos.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGAMENTO -->
+  <div class="section">
+    <span class="section-title">Forma de Pagamento</span>
+    <div class="pag-grid">
+      <div class="pag-item" id="pag-pix" onclick="selecionarPag('pix')">
+        <div class="pag-nome">Pix</div>
+        <div class="pag-sub">Transferência instantÃ¢nea</div>
+        <span class="tag-desc">10% OFF</span>
+      </div>
+      <div class="pag-item" id="pag-debito" onclick="selecionarPag('debito')">
+        <div class="pag-nome">Débito</div>
+        <div class="pag-sub">CartÃ£o de débito</div>
+        <span class="tag-desc">10% OFF</span>
+      </div>
+      <div class="pag-item" id="pag-credito" onclick="selecionarPag('credito')">
+        <div class="pag-nome">Crédito</div>
+        <div class="pag-sub">CartÃ£o de crédito</div>
+      </div>
+      <div class="pag-item" id="pag-vale" onclick="selecionarPag('vale')">
+        <div class="pag-nome">Vale Alimentação</div>
+        <div class="pag-sub">VR / VA / Ticket</div>
+      </div>
+    </div>
+    <div class="pag-aviso">Pedido confirmado automaticamente apÃ³s o pagamento aprovado.</div>
+  </div>
+
+  <!-- RESUMO -->
+  <div class="section">
+    <span class="section-title">Seu Pedido</span>
+    <div id="resumo-lista"><span class="r-vazio">Nenhum item selecionado ainda.</span></div>
+    <div class="resumo-total" id="resumo-total" style="display:none;"></div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h2>Resolva sua semana agora</h2>
+    <p>Comida com gosto de casa, entregue na sua rotina.</p>
+    <button class="btn-pedir" onclick="abrirModal()">Finalizar Pedido</button>
+</div>
+
+</div>
+
+<footer>Tá na Mão! &copy; 2025 ÃÂ· Alimentação Inteligente.</footer>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <button class="btn-fechar" onclick="fecharModal()">Ã¢ÂÂ</button>
+    <h3>Confirmar Pedido</h3>
+    <div class="m-subtitulo" id="m-subtitulo"></div>
+    <div class="m-resumo" id="m-resumo"></div>
+    <div class="m-total"  id="m-total"></div>
+
+    <div id="area-logado" style="display:none;">
+      <div class="l-nome" id="txt-nome-logado"></div>
+      <div class="l-tel"  id="txt-tel-logado"></div>
+      <a onclick="limparCadastro()">Não é você? Trocar os dados</a>
+    </div>
+
+    <div id="area-cadastro">
+      <span class="form-label">Seus dados</span>
+      <div class="form-grid">
+        <input type="text" id="m-nome" class="input-full" placeholder="Nome completo">
+        <input type="tel"  id="m-tel"  class="input-full" placeholder="WhatsApp com DDD  ex: 21 98000-0000">
+      </div>
+      <span class="form-label">Perfil rÃ¡pido Ã¢ÂÂ ajuda a te atender melhor</span>
+      <div class="form-grid">
+        <input type="number" id="m-idade" placeholder="Sua idade">
+        <input type="text"   id="m-prof"  placeholder="ProfissÃ£o">
+        <div class="check-row">
+          <input type="checkbox" id="m-casado"> Casado(a)
+        </div>
+        <div class="check-row">
+          <input type="checkbox" id="m-filhos"> Tem filhos
+        </div>
+      </div>
+    </div>
+
+    <div class="erro-msg" id="erro-msg"></div>
+
+    <button class="btn-pagar" id="btn-pagar" onclick="irParaCheckout()">Pagar com segurança</button>
+
+  </div>
+</div>
+
+<script>
+  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ CONFIG Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+  const BACKEND_URL = "https://tanamao-backend.onrender.com";
+
+  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ ESTADO Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+  let PRODS   = [];
+  let qtds    = {};
+  let pagSel  = "";
+  let clienteAtual = JSON.parse(localStorage.getItem("tanamao_cliente")) || null;
+
+  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ AUTH BAR Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+  function checarLogin() {
+    const bar = document.getElementById("auth-bar");
+    if (clienteAtual) {
+         bar.innerHTML = `Olá de novo, <strong>${clienteAtual.nome.split(" ")[0]}</strong>! <a id="logout">Sair</a>`;
+    } else {
+      bar.style.display = "none";
+    }
+  }
+
+  function limparCadastro() {
+    localStorage.removeItem("tanamao_cliente");
+    clienteAtual = null;
+    checarLogin();
+    document.getElementById("area-logado").style.display   = "none";
+    document.getElementById("area-cadastro").style.display = "block";
+    ["m-nome","m-tel","m-idade","m-prof"].forEach(id => document.getElementById(id).value = "");
+    document.getElementById("m-casado").checked = false;
+    document.getElementById("m-filhos").checked  = false;
+  }
+
+  checarLogin();
+
+  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ CARREGAR PRODUTOS DO BACKEND Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+  async function carregarProdutos() {
+    try {
+      const res  = await fetch(BACKEND_URL + "/api/products");
+      const data = await res.json();
+
+      if (!data.ok || !data.products.length) throw new Error("sem produtos");
+
+      PRODS = data.products;
+      PRODS.forEach(p => qtds[p.id] = 0);
+      renderProdutos();
+
+    } catch (e) {
+      document.getElementById("produtos-container").innerHTML = `
+        <div class="erro-cardapio">
+          <p>Não foi possível carregar o cardÃ¡pio.<br>Verifique sua conexão.</p>
+          <button class="btn-retry" onclick="carregarProdutos()">Tentar novamente</button>
+        </div>`;
+    }
+  }
+
+  function renderProdutos() {
+    const container = document.getElementById("produtos-container");
+
+    if (!PRODS.length) {
+      container.innerHTML = '<div class="erro-cardapio"><p>Cardápio em atualização. Volte em breve!</p></div>';
+      return;
+    }
+
+    container.innerHTML = PRODS.map(p => `
+      <div class="product">
+        <div class="product-info">
+          <div class="p-nome">${p.name}</div>
+          <div class="p-desc">${p.description || ""}</div>
+          <div class="p-preco">R$ ${Number(p.price).toFixed(2).replace(".", ",")}</div>
+        </div>
+        <div class="qty-wrap">
+          <button onclick="qty('${p.id}',-1)">-</button>
+          <span class="qty-num" id="${p.id}">0</span>
+          <button onclick="qty('${p.id}',1)">+</button>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ QTDE Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+  function qty(id, d) {
+    qtds[id] = Math.max(0, (qtds[id] || 0) + d);
+    const el = document.getElementById(id);
+    if (el) el.textContent = qtds[id];
+    atualizarResumo();
+  }
+
+  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ PAGAMENTO Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+  function selecionarPag(tipo) {
+    pagSel = tipo;
+    document.querySelectorAll(".pag-item").forEach(el => el.classList.remove("ativo"));
+    document.getElementById("pag-" + tipo).classList.add("ativo");
+    atualizarResumo();
+  }
+
+  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ CÃ­ÂLCULO Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+  function calcTotal() {
+    let sub = 0;
+    PRODS.forEach(p => { sub += (qtds[p.id] || 0) * Number(p.price); });
+    const descRate = (pagSel === "pix" || pagSel === "debito") ? 0.1 : 0;
+    const discount = Number((sub * descRate).toFixed(2));
+    const total    = Number((sub - discount).toFixed(2));
+    return { sub, descRate, discount, total };
+  }
+
+  function fmt(v) { return "R$ " + v.toFixed(2).replace(".", ","); }
+
+  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ RESUMO Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+  function atualizarResumo() {
+    const ativos = PRODS.filter(p => (qtds[p.id] || 0) > 0);
+    const rl = document.getElementById("resumo-lista");
+    const rt = document.getElementById("resumo-total");
+
+    if (!ativos.length) {
+      rl.innerHTML = '<span class="r-vazio">Nenhum item selecionado ainda.</span>';
+      rt.style.display = "none"; return;
+    }
+
+    const { sub, descRate, discount, total } = calcTotal();
+
+    let html = ativos.map(p =>
+      `<div>${p.name} Ã­Â ${qtds[p.id]} = ${fmt(qtds[p.id] * Number(p.price))}</div>`
+    ).join("");
+
+    if (descRate > 0) {
+      html += `<div style="color:#888;font-size:.85em;margin-top:4px;">Subtotal: ${fmt(sub)}</div>`;
+      html += `<div style="color:var(--verde);font-size:.85em;font-weight:800;">Desconto (10%): Ã¢ÂÂ ${fmt(discount)}</div>`;
+    }
+
+    rl.innerHTML = html;
+    rt.style.display = "block";
+    rt.textContent = "Total a pagar: " + fmt(total);
+  }
+
+  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ MODAL Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+  function abrirModal() {
+    const ativos = PRODS.filter(p => (qtds[p.id] || 0) > 0);
+    if (!ativos.length) { alert("Selecione pelo menos um item."); return; }
+    if (!pagSel)        { alert("Escolha a forma de pagamento."); return; }
+
+    const { sub, descRate, discount, total } = calcTotal();
+    const nomesPag = { pix:"Pix (10% OFF)", debito:"Débito (10% OFF)", credito:"Crédito", vale:"Vale Alimentação" };
+
+    let r = ativos.map(p =>
+      `Ã¢ÂÂ¢ ${p.name} Ã­Â ${qtds[p.id]} = ${fmt(qtds[p.id] * Number(p.price))}`
+    ).join("<br>");
+
+    if (descRate > 0) {
+      r += `<br><span style="color:var(--verde);font-weight:800;">Desconto: Ã¢ÂÂ ${fmt(discount)}</span>`;
+    }
+    r += `<br><strong>Pagamento: ${nomesPag[pagSel]}</strong>`;
+
+    document.getElementById("m-resumo").innerHTML = r;
+    document.getElementById("m-total").textContent = "Total: " + fmt(total);
+    document.getElementById("m-subtitulo").textContent = clienteAtual
+      ? `Olá, ${clienteAtual.nome.split(" ")[0]}! Confirme e finalize.`
+      : "Preencha seus dados para finalizar.";
+
+    if (clienteAtual) {
+      document.getElementById("txt-nome-logado").textContent = clienteAtual.nome;
+      document.getElementById("txt-tel-logado").textContent  = clienteAtual.tel;
+      document.getElementById("area-logado").style.display   = "block";
+      document.getElementById("area-cadastro").style.display = "none";
+    } else {
+      document.getElementById("area-logado").style.display   = "none";
+      document.getElementById("area-cadastro").style.display = "block";
+    }
+
+    ocultarErro();
+    resetBtn();
+    document.getElementById("overlay").classList.add("on");
+  }
+
+  function fecharModal() { document.getElementById("overlay").classList.remove("on"); }
+
+  function mostrarErro(msg) {
+    const el = document.getElementById("erro-msg");
+    el.textContent = msg; el.style.display = "block";
+  }
+  function ocultarErro() {
+    const el = document.getElementById("erro-msg");
+    el.style.display = "none"; el.textContent = "";
+  }
+  function resetBtn() {
+    const btn = document.getElementById("btn-pagar");
+    btn.disabled = false;
+    btn.innerHTML = "Ã°ÂÂÂ Pagar com segurança";
+  }
+
+  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ CHECKOUT Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+  async function irParaCheckout() {
+    ocultarErro();
+    let cliente = clienteAtual;
+
+    if (!cliente) {
+      const nome        = document.getElementById("m-nome").value.trim();
+      const tel         = document.getElementById("m-tel").value.trim();
+      const cep         = document.getElementById("m-cep").value.trim();
+      const rua         = document.getElementById("m-rua").value.trim();
+      const numero      = document.getElementById("m-numero").value.trim();
+      const complemento = document.getElementById("m-complemento").value.trim();
+      const bairro      = document.getElementById("m-bairro").value.trim();
+      const cidade      = document.getElementById("m-cidade").value.trim();
+      const estado      = document.getElementById("m-estado").value.trim();
+
+      if (!nome || !tel || !cep || !rua || !numero || !bairro || !cidade || !estado) {
+        mostrarErro("Preencha seu nome, WhatsApp e endereço completo para continuar.");
+        return;
+      }
+
+      cliente = { nome, tel, endereco: { cep, rua, numero, complemento, bairro, cidade, estado } };
+      localStorage.setItem("tanamao_cliente", JSON.stringify(cliente));
+      clienteAtual = cliente;
+      checarLogin();
+    }
+
+    const ativos = PRODS.filter(p => (qtds[p.id] || 0) > 0);
+
+    const payload = {
+      items: ativos.map(p => ({ id: p.id, quantity: qtds[p.id] })),
+      paymentMethod: pagSel,
+      customer: {
+        nome:     cliente.nome,
+        telefone: cliente.tel || "",
+        endereco: cliente.endereco || {}
+      },
+      source: "site"
+    };
+
+    const btn = document.getElementById("btn-pagar");
+    btn.disabled = true;
+    btn.innerHTML = `<span class="spinner"></span> Gerando pagamento...`;
+
+    try {
+      const response = await fetch(BACKEND_URL + "/api/checkout/create-preference", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.ok) {
+        mostrarErro(data.message || "Erro ao gerar pagamento. Tente novamente.");
+        resetBtn(); return;
+      }
+
+      window.location.href = data.checkoutUrl;
+
+    } catch (err) {
+      console.error(err);
+      mostrarErro("Não foi possível conectar ao servidor. Verifique sua conexão.");
+      resetBtn();
+    }
+  }
+
+  // fecha modal ao clicar fora
+  window.addEventListener("click", e => {
+    if (e.target === document.getElementById("overlay")) fecharModal();
+  });
+
+  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ INIT Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+  // Busca CEP automÃ¡tico via ViaCEP
+  async function buscarCep() {
+    const cep = document.getElementById("m-cep").value.replace(/[^0-9]/g, '');
+    if (cep.length !== 8) return;
+    try {
+      const res  = await fetch("https://viacep.com.br/ws/" + cep + "/json/");
+      const data = await res.json();
+      if (!data.erro) {
+        document.getElementById("m-rua").value    = data.logradouro || '';
+        document.getElementById("m-bairro").value = data.bairro     || '';
+        document.getElementById("m-cidade").value = data.localidade || '';
+        document.getElementById("m-estado").value = data.uf         || '';
+        document.getElementById("m-numero").focus();
+      }
+    } catch (e) { console.error("Erro ao buscar CEP", e); }
+  }
+
+  carregarProdutos();
+</script>
 </body>
 </html>
-
-
