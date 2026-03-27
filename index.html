@@ -36,11 +36,10 @@
     display: block; margin: 0 auto 18px;
     box-shadow: 0 8px 24px rgba(0,0,0,0.35);
   }
-  header h1 { font-size: 2.4em; font-weight: 800; color: var(--dourado); letter-spacing: 0.5px; margin-bottom: 6px; }
+  header h1 { font-size: 2.4em; font-weight: 800; color: var(--dourado); }
   header .slogan { font-size: 1.05em; font-weight: 600; color: #fff; margin-bottom: 12px; }
-  header p { font-size: 0.9em; color: rgba(255,255,255,0.85); max-width: 440px; margin: 0 auto 18px; line-height: 1.6; }
-  .badges { display: inline-flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
-  .badge { background: rgba(0,0,0,0.2); border: 1px solid var(--dourado); color: var(--dourado); font-size: 0.75em; padding: 5px 13px; border-radius: 20px; font-weight: 600; }
+
+  .badge { color: var(--dourado); }
 </style>
 </head>
 <body>
@@ -51,7 +50,7 @@
   <img src="TanaMao_Logo.jpg" class="logo" alt="Tá na Mão!">
   <div class="slogan">Praticidade & Saúde</div>
   <p>Pratos prontos e congelados com sabor caseiro para resolver sua semana sem complicações.</p>
-  <div class="badges">
+  <div>
     <span class="badge">✔ Sem conservantes</span>
     <span class="badge">✔ Produção caseira</span>
     <span class="badge">✔ Entrega em 48h</span>
@@ -59,6 +58,7 @@
 </header>
 
 <script>
+const BACKEND_URL = "https://tanamao-backend.onrender.com";
 let clienteAtual = JSON.parse(localStorage.getItem("tanamao_cliente")) || null;
 
 function checarLogin() {
@@ -77,6 +77,14 @@ function limparCadastro() {
   checarLogin();
 }
 
+function fmt(v) {
+  return "R$ " + Number(v).toFixed(2).replace(".", ",");
+}
+
+function textoSeguro(str) {
+  return String(str || "").replace(/[<>]/g, "");
+}
+
 checarLogin();
 </script>
 
@@ -84,3 +92,4 @@ checarLogin();
 
 </body>
 </html>
+
