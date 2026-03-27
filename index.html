@@ -18,77 +18,101 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: "Outfit", sans-serif; background: var(--fundo); color: var(--texto); }
 
-  #auth-bar {
-    background: #111; color: var(--dourado);
-    text-align: center; padding: 9px 16px;
-    font-size: 0.85em; font-weight: 600; display: none;
-  }
-  #auth-bar a { color: #fff; cursor: pointer; text-decoration: underline; margin-left: 10px; font-weight: 400; }
+  #auth-bar { background: #111; color: var(--dourado); text-align: center; padding: 9px; display:none; }
+  #auth-bar a { color:#fff; margin-left:10px; cursor:pointer; }
 
-  header {
-    background: var(--verde);
-    padding: 40px 20px 32px;
-    text-align: center;
-    border-bottom: 4px solid var(--dourado);
-  }
-  header img.logo {
-    width: 130px; height: 130px; border-radius: 28px;
-    display: block; margin: 0 auto 18px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.35);
-  }
-  header h1 { font-size: 2.4em; font-weight: 800; color: var(--dourado); }
-  header .slogan { font-size: 1.05em; font-weight: 600; color: #fff; margin-bottom: 12px; }
+  .container { max-width:800px; margin:auto; padding:20px; }
+  .product { display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #eee; }
+  .qty-wrap button { width:30px; height:30px; }
 
-  .badge { color: var(--dourado); }
+  .btn { background:var(--dourado); padding:12px; border:none; border-radius:8px; cursor:pointer; width:100%; }
 </style>
 </head>
 <body>
 
 <div id="auth-bar"></div>
 
-<header>
-  <img src="TanaMao_Logo.jpg" class="logo" alt="Tá na Mão!">
-  <div class="slogan">Praticidade & Saúde</div>
-  <p>Pratos prontos e congelados com sabor caseiro para resolver sua semana sem complicações.</p>
-  <div>
-    <span class="badge">✔ Sem conservantes</span>
-    <span class="badge">✔ Produção caseira</span>
-    <span class="badge">✔ Entrega em 48h</span>
-  </div>
-</header>
+<div class="container">
+  <h1>Tá na Mão! — Praticidade e Saúde</h1>
+  <div id="produtos"></div>
+  <h2 id="total"></h2>
+  <button class="btn" onclick="checkout()">Finalizar Pedido →</button>
+</div>
 
 <script>
 const BACKEND_URL = "https://tanamao-backend.onrender.com";
+let produtos = [];
+let carrinho = {};
 let clienteAtual = JSON.parse(localStorage.getItem("tanamao_cliente")) || null;
 
 function checarLogin() {
   const bar = document.getElementById("auth-bar");
-  if (clienteAtual) {
-    bar.innerHTML = `Olá de novo, <strong>${clienteAtual.nome.split(" ")[0]}</strong>! ✨ <a onclick="limparCadastro()">Sair</a>`;
+  if(clienteAtual){
+    bar.innerHTML = `Olá, ${clienteAtual.nome.split(" ")[0]} ✨ <a onclick="logout()">Sair</a>`;
     bar.style.display = "block";
-  } else {
-    bar.style.display = "none";
   }
 }
 
-function limparCadastro() {
+function logout(){
   localStorage.removeItem("tanamao_cliente");
-  clienteAtual = null;
-  checarLogin();
+  location.reload();
 }
 
-function fmt(v) {
-  return "R$ " + Number(v).toFixed(2).replace(".", ",");
+async function carregar(){
+  const res = await fetch(BACKEND_URL+"/api/products");
+  const data = await res.json();
+  produtos = data.products || [];
+  render();
 }
 
-function textoSeguro(str) {
-  return String(str || "").replace(/[<>]/g, "");
+function render(){
+  const el = document.getElementById("produtos");
+  el.innerHTML = produtos.map(p=>`
+    <div class="product">
+      <div>
+        <strong>${p.name}</strong><br>
+        R$ ${Number(p.price).toFixed(2).replace(".",",")}
+      </div>
+      <div class="qty-wrap">
+        <button onclick="add('${p.id}',-1)">−</button>
+        <span>${carrinho[p.id]||0}</span>
+        <button onclick="add('${p.id}',1)">+</button>
+      </div>
+    </div>
+  `).join("");
+  atualizarTotal();
+}
+
+function add(id, q){
+  carrinho[id] = Math.max(0,(carrinho[id]||0)+q);
+  render();
+}
+
+function atualizarTotal(){
+  let total=0;
+  produtos.forEach(p=>{
+    total += (carrinho[p.id]||0)*Number(p.price);
+  });
+  document.getElementById("total").innerText = "Total: R$ "+total.toFixed(2).replace(".",",");
+}
+
+async function checkout(){
+  const items = Object.keys(carrinho).filter(id=>carrinho[id]>0).map(id=>({id,quantity:carrinho[id]}));
+  if(!items.length){ alert("Selecione itens"); return; }
+
+  const res = await fetch(BACKEND_URL+"/api/checkout/create-preference",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({items})
+  });
+
+  const data = await res.json();
+  if(data.checkoutUrl) window.location.href = data.checkoutUrl;
 }
 
 checarLogin();
+carregar();
 </script>
-
-<footer>Tá na Mão! &copy; 2025 · Alimentação Inteligente.</footer>
 
 </body>
 </html>
