@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-<meta charset="UTF-8">
+<!-- saved from url=(0103)https://tess-workflows-files.storage.googleapis.com/8b5be9b6268a2de8d4849802151bfbd0a48ac104/index.html -->
+<html lang="pt-br"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tá na Mão!  Praticidade e Saúde</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+<title>Tá na Mão! — Praticidade e Saúde</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="./Tá na Mão! — Praticidade e Saúde_files/css2" rel="stylesheet">
 <style>
   :root {
     --verde: #3C6E47;
@@ -127,7 +127,7 @@
   .btn-pagar:hover { background: #d6b77c; transform: translateY(-2px); }
   .btn-pagar:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
 
-  .btn-fechar { position: absolute; top: 16px; right: 20px; background: none; border: none; font-size: 1.4em; cursor: pointer; color: #ccc; }
+  .btn-fechar { position: absolute; top: 16px; right: 20px; background: none; border: none; font-size: 1.4em; cursor: pointer; color: #ccc; line-height: 1; }
   .btn-fechar:hover { color: #999; }
 
   .erro-msg { background: #fff0f0; border: 1px solid #f5c6c6; color: #c0392b; border-radius: 8px; padding: 10px 14px; font-size: 0.85em; margin-top: 12px; display: none; text-align: center; }
@@ -143,54 +143,31 @@
     .pag-grid { grid-template-columns: 1fr 1fr; }
   }
 </style>
-</head>
+<style id="_goober"> @keyframes go2264125279{from{transform:scale(0) rotate(45deg);opacity:0;}to{transform:scale(1) rotate(45deg);opacity:1;}}@keyframes go3020080000{from{transform:scale(0);opacity:0;}to{transform:scale(1);opacity:1;}}@keyframes go463499852{from{transform:scale(0) rotate(90deg);opacity:0;}to{transform:scale(1) rotate(90deg);opacity:1;}}@keyframes go1268368563{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}@keyframes go1310225428{from{transform:scale(0) rotate(45deg);opacity:0;}to{transform:scale(1) rotate(45deg);opacity:1;}}@keyframes go651618207{0%{height:0;width:0;opacity:0;}40%{height:0;width:6px;opacity:1;}100%{opacity:1;height:10px;}}@keyframes go901347462{from{transform:scale(0.6);opacity:0.4;}to{transform:scale(1);opacity:1;}}.go4109123758{z-index:9999;}.go4109123758 > *{pointer-events:auto;}</style></head>
 <body>
 
-<div id="auth-bar"></div>
+<div id="auth-bar" style="display: block;">Olá de novo, <strong>Guilherme</strong>! <a id="logout">Sair</a></div>
 
 <header>
   <img src="TanaMao_Logo.jpg" class="logo" alt="Tá na Mão!">
-  <div class="slogan">Praticidade & Saúde</div>
+  <div class="slogan">Praticidade &amp; Saúde</div>
   <p>Pratos prontos e congelados com sabor caseiro para resolver sua semana sem complicações.</p>
   <div class="badges">
     <span class="badge">Sem conservantes</span>
     <span class="badge">Produção caseira</span>
-    
   </div>
 </header>
 
 <div class="container">
 
-  <!-- CARDÃ­ÂPIO DINÃ­ÂMICO -->
+  <!-- CARDÁPIO DINÂMICO -->
   <div class="section" id="section-cardapio">
     <span class="section-title">Nosso Cardápio</span>
     <div id="produtos-container">
-      <!-- skeleton loading -->
-      <div class="sk-product">
-        <div class="sk-left">
-          <div class="skeleton sk-nome"></div>
-          <div class="skeleton sk-desc"></div>
-          <div class="skeleton sk-preco"></div>
-        </div>
-        <div class="skeleton sk-right"></div>
-      </div>
-      <div class="sk-product">
-        <div class="sk-left">
-          <div class="skeleton sk-nome"></div>
-          <div class="skeleton sk-desc"></div>
-          <div class="skeleton sk-preco"></div>
-        </div>
-        <div class="skeleton sk-right"></div>
-      </div>
-      <div class="sk-product">
-        <div class="sk-left">
-          <div class="skeleton sk-nome"></div>
-          <div class="skeleton sk-desc"></div>
-          <div class="skeleton sk-preco"></div>
-        </div>
-        <div class="skeleton sk-right"></div>
-      </div>
-    </div>
+        <div class="erro-cardapio">
+          <p>Não foi possível carregar o cardápio.<br>Verifique sua conexão.</p>
+          <button class="btn-retry" onclick="carregarProdutos()">Tentar novamente</button>
+        </div></div>
   </div>
 
   <!-- COMO FUNCIONA -->
@@ -224,21 +201,21 @@
   <div class="section">
     <span class="section-title">Forma de Pagamento</span>
     <div class="pag-grid">
-      <div class="pag-item" id="pag-pix" onclick="selecionarPag('pix')">
+      <div class="pag-item" id="pag-pix" onclick="selecionarPag(&#39;pix&#39;)">
         <div class="pag-nome">Pix</div>
         <div class="pag-sub">Transferência instantânea</div>
         <span class="tag-desc">10% OFF</span>
       </div>
-      <div class="pag-item" id="pag-debito" onclick="selecionarPag('debito')">
+      <div class="pag-item" id="pag-debito" onclick="selecionarPag(&#39;debito&#39;)">
         <div class="pag-nome">Débito</div>
         <div class="pag-sub">Cartão de débito</div>
         <span class="tag-desc">10% OFF</span>
       </div>
-      <div class="pag-item" id="pag-credito" onclick="selecionarPag('credito')">
+      <div class="pag-item" id="pag-credito" onclick="selecionarPag(&#39;credito&#39;)">
         <div class="pag-nome">Crédito</div>
         <div class="pag-sub">Cartão de crédito</div>
       </div>
-      <div class="pag-item" id="pag-vale" onclick="selecionarPag('vale')">
+      <div class="pag-item" id="pag-vale" onclick="selecionarPag(&#39;vale&#39;)">
         <div class="pag-nome">Vale Alimentação</div>
         <div class="pag-sub">VR / VA / Ticket</div>
       </div>
@@ -257,37 +234,51 @@
   <div class="cta-section">
     <h2>Resolva sua semana agora</h2>
     <button class="btn-pedir" onclick="abrirModal()">Finalizar Pedido</button>
-</div>
+  </div>
 
 </div>
 
-<footer>Tá na Mão! &copy; 2025 ÃÂ· Alimentação Inteligente.</footer>
+<footer>Tá na Mão! © 2025 · Alimentação Inteligente.</footer>
 
 <!-- MODAL -->
 <div class="overlay" id="overlay">
   <div class="modal">
-    <button class="btn-fechar" onclick="fecharModal()"></button>
+    <button class="btn-fechar" onclick="fecharModal()" aria-label="Fechar">×</button>
     <h3>Confirmar Pedido</h3>
     <div class="m-subtitulo" id="m-subtitulo"></div>
     <div class="m-resumo" id="m-resumo"></div>
-    <div class="m-total"  id="m-total"></div>
+    <div class="m-total" id="m-total"></div>
 
+    <!-- Área exibida quando o cliente já está salvo no localStorage -->
     <div id="area-logado" style="display:none;">
       <div class="l-nome" id="txt-nome-logado"></div>
-      <div class="l-tel"  id="txt-tel-logado"></div>
+      <div class="l-tel" id="txt-tel-logado"></div>
       <a onclick="limparCadastro()">Não é você? Trocar os dados</a>
     </div>
 
+    <!-- Formulário de cadastro -->
     <div id="area-cadastro">
       <span class="form-label">Seus dados</span>
       <div class="form-grid">
         <input type="text" id="m-nome" class="input-full" placeholder="Nome completo">
-        <input type="tel"  id="m-tel"  class="input-full" placeholder="WhatsApp com DDD  ex: 21 98000-0000">
+        <input type="tel" id="m-tel" class="input-full" placeholder="WhatsApp com DDD — ex: 21 98000-0000">
       </div>
-      <span class="form-label">Perfil rápido ação ajuda a te atender melhor</span>
+
+      <span class="form-label">Endereço de entrega</span>
+      <div class="form-grid">
+        <input type="text" id="m-cep" placeholder="CEP" onblur="buscarCep()">
+        <input type="text" id="m-estado" placeholder="UF">
+        <input type="text" id="m-rua" placeholder="Rua" class="input-full">
+        <input type="text" id="m-numero" placeholder="Número">
+        <input type="text" id="m-complemento" placeholder="Complemento">
+        <input type="text" id="m-bairro" placeholder="Bairro">
+        <input type="text" id="m-cidade" placeholder="Cidade" class="input-full">
+      </div>
+
+      <span class="form-label">Perfil rápido — ajuda a te atender melhor</span>
       <div class="form-grid">
         <input type="number" id="m-idade" placeholder="Sua idade">
-        <input type="text"   id="m-prof"  placeholder="Profissão">
+        <input type="text" id="m-prof" placeholder="Profissão">
         <div class="check-row">
           <input type="checkbox" id="m-casado"> Casado(a)
         </div>
@@ -299,28 +290,38 @@
 
     <div class="erro-msg" id="erro-msg"></div>
 
-    <button class="btn-pagar" id="btn-pagar" onclick="irParaCheckout()">Pagar com segurança</button>
+    <button class="btn-pagar" id="btn-pagar" onclick="irParaCheckout()">🔒 Pagar com segurança</button>
 
   </div>
 </div>
 
 <script>
-  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ CONFIG Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+  // ── CONFIG ──────────────────────────────────────────────────────────────────
   const BACKEND_URL = "https://tanamao-backend.onrender.com";
 
-  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ ESTADO Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
-  let PRODS   = [];
-  let qtds    = {};
-  let pagSel  = "";
-  let clienteAtual = JSON.parse(localStorage.getItem("tanamao_cliente")) || null;
+  // ── ESTADO ──────────────────────────────────────────────────────────────────
+  let PRODS  = [];
+  let qtds   = {};
+  let pagSel = "";
+  let clienteAtual = null;
 
-  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ AUTH BAR Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+  try {
+    clienteAtual = JSON.parse(localStorage.getItem("tanamao_cliente")) || null;
+  } catch {
+    clienteAtual = null;
+  }
+
+  // ── AUTH BAR ─────────────────────────────────────────────────────────────────
   function checarLogin() {
     const bar = document.getElementById("auth-bar");
     if (clienteAtual) {
-         bar.innerHTML = `Olá de novo, <strong>${clienteAtual.nome.split(" ")[0]}</strong>! <a id="logout">Sair</a>`;
+      bar.style.display = "block";
+      bar.innerHTML = `Olá de novo, <strong>${clienteAtual.nome.split(" ")[0]}</strong>! <a id="logout">Sair</a>`;
+      const logoutEl = document.getElementById("logout");
+      if (logoutEl) logoutEl.onclick = limparCadastro;
     } else {
       bar.style.display = "none";
+      bar.innerHTML = "";
     }
   }
 
@@ -330,14 +331,22 @@
     checarLogin();
     document.getElementById("area-logado").style.display   = "none";
     document.getElementById("area-cadastro").style.display = "block";
-    ["m-nome","m-tel","m-idade","m-prof"].forEach(id => document.getElementById(id).value = "");
-    document.getElementById("m-casado").checked = false;
-    document.getElementById("m-filhos").checked  = false;
+
+    const campos = ["m-nome","m-tel","m-cep","m-rua","m-numero","m-complemento","m-bairro","m-cidade","m-estado","m-idade","m-prof"];
+    campos.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = "";
+    });
+
+    ["m-casado","m-filhos"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.checked = false;
+    });
   }
 
   checarLogin();
 
-  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ CARREGAR PRODUTOS DO BACKEND Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+  // ── CARREGAR PRODUTOS DO BACKEND ─────────────────────────────────────────────
   async function carregarProdutos() {
     try {
       const res  = await fetch(BACKEND_URL + "/api/products");
@@ -352,7 +361,7 @@
     } catch (e) {
       document.getElementById("produtos-container").innerHTML = `
         <div class="erro-cardapio">
-          <p>Não foi possível carregar o cardÃ¡pio.<br>Verifique sua conexão.</p>
+          <p>Não foi possível carregar o cardápio.<br>Verifique sua conexão.</p>
           <button class="btn-retry" onclick="carregarProdutos()">Tentar novamente</button>
         </div>`;
     }
@@ -382,7 +391,7 @@
     `).join("");
   }
 
-  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ QTDE Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+  // ── QUANTIDADE ───────────────────────────────────────────────────────────────
   function qty(id, d) {
     qtds[id] = Math.max(0, (qtds[id] || 0) + d);
     const el = document.getElementById(id);
@@ -390,7 +399,7 @@
     atualizarResumo();
   }
 
-  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ PAGAMENTO Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+  // ── SELEÇÃO DE PAGAMENTO ─────────────────────────────────────────────────────
   function selecionarPag(tipo) {
     pagSel = tipo;
     document.querySelectorAll(".pag-item").forEach(el => el.classList.remove("ativo"));
@@ -398,7 +407,7 @@
     atualizarResumo();
   }
 
-  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ CÃ­ÂLCULO Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+  // ── CÁLCULO ──────────────────────────────────────────────────────────────────
   function calcTotal() {
     let sub = 0;
     PRODS.forEach(p => { sub += (qtds[p.id] || 0) * Number(p.price); });
@@ -410,7 +419,7 @@
 
   function fmt(v) { return "R$ " + v.toFixed(2).replace(".", ","); }
 
-  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ RESUMO Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+  // ── RESUMO ───────────────────────────────────────────────────────────────────
   function atualizarResumo() {
     const ativos = PRODS.filter(p => (qtds[p.id] || 0) > 0);
     const rl = document.getElementById("resumo-lista");
@@ -418,18 +427,19 @@
 
     if (!ativos.length) {
       rl.innerHTML = '<span class="r-vazio">Nenhum item selecionado ainda.</span>';
-      rt.style.display = "none"; return;
+      rt.style.display = "none";
+      return;
     }
 
     const { sub, descRate, discount, total } = calcTotal();
 
     let html = ativos.map(p =>
-      `<div>${p.name} Ã­Â ${qtds[p.id]} = ${fmt(qtds[p.id] * Number(p.price))}</div>`
+      `<div>${p.name} &times; ${qtds[p.id]} = ${fmt(qtds[p.id] * Number(p.price))}</div>`
     ).join("");
 
     if (descRate > 0) {
       html += `<div style="color:#888;font-size:.85em;margin-top:4px;">Subtotal: ${fmt(sub)}</div>`;
-      html += `<div style="color:var(--verde);font-size:.85em;font-weight:800;">Desconto (10%): Ã¢ÂÂ ${fmt(discount)}</div>`;
+      html += `<div style="color:var(--verde);font-size:.85em;font-weight:800;">Desconto (10%): &minus; ${fmt(discount)}</div>`;
     }
 
     rl.innerHTML = html;
@@ -437,21 +447,26 @@
     rt.textContent = "Total a pagar: " + fmt(total);
   }
 
-  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ MODAL Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+  // ── MODAL ────────────────────────────────────────────────────────────────────
   function abrirModal() {
     const ativos = PRODS.filter(p => (qtds[p.id] || 0) > 0);
     if (!ativos.length) { alert("Selecione pelo menos um item."); return; }
     if (!pagSel)        { alert("Escolha a forma de pagamento."); return; }
 
     const { sub, descRate, discount, total } = calcTotal();
-    const nomesPag = { pix:"Pix (10% OFF)", debito:"Débito (10% OFF)", credito:"Crédito", vale:"Vale Alimentação" };
+    const nomesPag = {
+      pix:     "Pix (10% OFF)",
+      debito:  "Débito (10% OFF)",
+      credito: "Crédito",
+      vale:    "Vale Alimentação"
+    };
 
     let r = ativos.map(p =>
-      `Ã¢ÂÂ¢ ${p.name} Ã­Â ${qtds[p.id]} = ${fmt(qtds[p.id] * Number(p.price))}`
+      `&#8226; ${p.name} &times; ${qtds[p.id]} = ${fmt(qtds[p.id] * Number(p.price))}`
     ).join("<br>");
 
     if (descRate > 0) {
-      r += `<br><span style="color:var(--verde);font-weight:800;">Desconto: Ã¢ÂÂ ${fmt(discount)}</span>`;
+      r += `<br><span style="color:var(--verde);font-weight:800;">Desconto: &minus; ${fmt(discount)}</span>`;
     }
     r += `<br><strong>Pagamento: ${nomesPag[pagSel]}</strong>`;
 
@@ -476,37 +491,48 @@
     document.getElementById("overlay").classList.add("on");
   }
 
-  function fecharModal() { document.getElementById("overlay").classList.remove("on"); }
+  function fecharModal() {
+    document.getElementById("overlay").classList.remove("on");
+  }
 
   function mostrarErro(msg) {
     const el = document.getElementById("erro-msg");
-    el.textContent = msg; el.style.display = "block";
+    el.textContent = msg;
+    el.style.display = "block";
   }
+
   function ocultarErro() {
     const el = document.getElementById("erro-msg");
-    el.style.display = "none"; el.textContent = "";
+    el.style.display = "none";
+    el.textContent = "";
   }
+
   function resetBtn() {
     const btn = document.getElementById("btn-pagar");
     btn.disabled = false;
-    btn.innerHTML = "Ã°ÂÂÂ Pagar com segurança";
+    btn.innerHTML = "&#128274; Pagar com segurança";
   }
 
-  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ CHECKOUT Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+  // ── CHECKOUT ─────────────────────────────────────────────────────────────────
+  function getVal(id) {
+    const el = document.getElementById(id);
+    return el ? el.value.trim() : "";
+  }
+
   async function irParaCheckout() {
     ocultarErro();
     let cliente = clienteAtual;
 
     if (!cliente) {
-      const nome        = document.getElementById("m-nome").value.trim();
-      const tel         = document.getElementById("m-tel").value.trim();
-      const cep         = document.getElementById("m-cep").value.trim();
-      const rua         = document.getElementById("m-rua").value.trim();
-      const numero      = document.getElementById("m-numero").value.trim();
-      const complemento = document.getElementById("m-complemento").value.trim();
-      const bairro      = document.getElementById("m-bairro").value.trim();
-      const cidade      = document.getElementById("m-cidade").value.trim();
-      const estado      = document.getElementById("m-estado").value.trim();
+      const nome        = getVal("m-nome");
+      const tel         = getVal("m-tel");
+      const cep         = getVal("m-cep");
+      const rua         = getVal("m-rua");
+      const numero      = getVal("m-numero");
+      const complemento = getVal("m-complemento");
+      const bairro      = getVal("m-bairro");
+      const cidade      = getVal("m-cidade");
+      const estado      = getVal("m-estado");
 
       if (!nome || !tel || !cep || !rua || !numero || !bairro || !cidade || !estado) {
         mostrarErro("Preencha seu nome, WhatsApp e endereço completo para continuar.");
@@ -538,16 +564,17 @@
 
     try {
       const response = await fetch(BACKEND_URL + "/api/checkout/create-preference", {
-        method: "POST",
+        method:  "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
+        body:    JSON.stringify(payload)
       });
 
       const data = await response.json();
 
       if (!response.ok || !data.ok) {
         mostrarErro(data.message || "Erro ao gerar pagamento. Tente novamente.");
-        resetBtn(); return;
+        resetBtn();
+        return;
       }
 
       window.location.href = data.checkoutUrl;
@@ -559,30 +586,30 @@
     }
   }
 
-  // fecha modal ao clicar fora
+  // Fecha modal ao clicar fora
   window.addEventListener("click", e => {
     if (e.target === document.getElementById("overlay")) fecharModal();
   });
 
-  // Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ INIT Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
-  // Busca CEP automÃ¡tico via ViaCEP
+  // ── BUSCA CEP AUTOMÁTICA VIA VIACEP ──────────────────────────────────────────
   async function buscarCep() {
-    const cep = document.getElementById("m-cep").value.replace(/[^0-9]/g, '');
+    const cep = getVal("m-cep").replace(/[^0-9]/g, "");
     if (cep.length !== 8) return;
     try {
-      const res  = await fetch("https://viacep.com.br/ws/" + cep + "/json/");
+      const res  = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
       const data = await res.json();
       if (!data.erro) {
-        document.getElementById("m-rua").value    = data.logradouro || '';
-        document.getElementById("m-bairro").value = data.bairro     || '';
-        document.getElementById("m-cidade").value = data.localidade || '';
-        document.getElementById("m-estado").value = data.uf         || '';
+        document.getElementById("m-rua").value    = data.logradouro || "";
+        document.getElementById("m-bairro").value = data.bairro     || "";
+        document.getElementById("m-cidade").value = data.localidade || "";
+        document.getElementById("m-estado").value = data.uf         || "";
         document.getElementById("m-numero").focus();
       }
-    } catch (e) { console.error("Erro ao buscar CEP", e); }
+    } catch (e) {
+      console.error("Erro ao buscar CEP", e);
+    }
   }
 
+  // ── INIT ──────────────────────────────────────────────────────────────────────
   carregarProdutos();
 </script>
-</body>
-</html>
