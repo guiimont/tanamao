@@ -21,7 +21,7 @@
     <div class="icon">✅</div>
     <h1>Pedido confirmado!</h1>
     <p>Seu pagamento foi aprovado com sucesso.<br>Em breve entraremos em contato para combinar a entrega. Fique de olho no WhatsApp!</p>
-    <a href="/TanaMao/">Fazer outro pedido</a>
+    <a href="/">Fazer outro pedido</a>
   </div>
 </body>
 </html>
