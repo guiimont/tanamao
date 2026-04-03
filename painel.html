@@ -203,8 +203,14 @@
       document.getElementById('count-preparing').textContent = preparando.length;
       document.getElementById('count-ready').textContent = prontos.length;
       document.getElementById('count-delivery').textContent = entrega.length;
+    }  
+    
+    function abrirWhats(p) {
+      const numero = (p.customer_phone || "").replace(/\D/g, "");
+      const msg = `Olá ${p.customer_name}, aqui é da Tá na Mão! Seu pedido já está em andamento ✅`;
+      window.open(`https://wa.me/55${numero}?text=${encodeURIComponent(msg)}`);
     }
-
+    
     async function atualizarStatus(id, delivery_status) {
       try {
         const res = await fetch(BACKEND_URL + '/orders/' + id + '/status', {
