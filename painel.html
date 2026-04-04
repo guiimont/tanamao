@@ -112,6 +112,16 @@
       document.getElementById('painel-screen').style.display = 'block';
       carregarPedidos();
     }
+   function editarLimite() {
+    const novo = prompt("Novo limite diário:", "100");
+    if (!novo) return;
+
+    fetch(BACKEND_URL + '/settings/limit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ value: novo })
+    });
+  }
 
     function verificarSessao() {
       if (sessionStorage.getItem('tanamao_painel_auth') === 'ok') {
@@ -134,6 +144,34 @@
         document.getElementById('status-info').textContent = 'Erro ao carregar pedidos.';
         console.error(e);
       }
+        const limite = 100; // depois vamos puxar do backend
+        const pedidosHoje = pedidos.filter(p => {
+          const hoje = new Date().toISOString().slice(0,10);
+          return p.created_at.startsWith(hoje) && p.payment_status === 'approved';
+        }).length;
+
+        if (pedidosHoje >= limite) {
+          mostrarAlertaLimite();
+        }
+    function mostrarAlertaLimite() {
+      const confirmar = confirm(
+        "⚠️ Limite de pedidos atingido.\n\nDeseja continuar recebendo pedidos?"
+      );
+
+      if (!confirmar) {
+        fecharPedidos();
+      }
+    }
+    async function fecharPedidos() {
+      await fetch(BACKEND_URL + '/settings/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ value: 'false' })
+      });
+
+      alert("Pedidos foram FECHADOS.");
+    }
+
     }
 
     function traduzirPagamento(status) {
@@ -190,6 +228,8 @@
         WhatsApp
       </button>
       `;
+          <button onclick="editarLimite()">Definir limite</button>
+
         }
 
       div.innerHTML = `
