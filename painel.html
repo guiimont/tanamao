@@ -14,7 +14,22 @@
 body{font-family:Arial;background:var(--fundo);margin:0}
 header{background:var(--verde);color:#fff;padding:20px;text-align:center;border-bottom:4px solid var(--dourado)}
 .board{max-width:1400px;margin:20px auto;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:0 16px}
-.column{background:#fff;border-radius:16px;padding:10px}
+.column {
+  background:#fff;
+  border-radius:16px;
+  padding:10px;
+  display:flex;
+  flex-direction:column;
+}
+
+.column-header {
+  text-align:center;
+  font-weight:800;
+  padding:10px;
+  border-bottom:1px solid #eee;
+  margin-bottom:10px;
+}
+
 .card{border:1px solid var(--borda);border-radius:10px;padding:10px;margin-bottom:10px}
 .btn{padding:10px;border:none;border-radius:8px;font-weight:bold;cursor:pointer}
 .btn-primary{background:var(--verde);color:#fff}
@@ -27,7 +42,11 @@ header{background:var(--verde);color:#fff;padding:20px;text-align:center;border-
 <body>
 
 <header>
-<h2>Painel Operacional</h2>
+<header style="display:flex;align-items:center;justify-content:center;gap:12px;">
+  <img src="/TanaMao_Logo" alt="Logo" style="height:40px;">
+  <h2 style="margin:0;">Painel Operacional</h2>
+</header>
+
 </header>
 
 <div class="topbar">
@@ -36,10 +55,26 @@ header{background:var(--verde);color:#fff;padding:20px;text-align:center;border-
 </div>
 
 <div class="board">
-<div><h3>Entrou</h3><div id="col-paid"></div></div>
-<div><h3>Produção</h3><div id="col-preparing"></div></div>
-<div><h3>Pronto</h3><div id="col-ready"></div></div>
-<div><h3>Entrega</h3><div id="col-delivery"></div></div>
+<div class="column">
+  <div class="column-header">Entrou</div>
+  <div id="col-paid"></div>
+</div>
+
+<div class="column">
+  <div class="column-header">Produção</div>
+  <div id="col-preparing"></div>
+</div>
+
+<div class="column">
+  <div class="column-header">Pronto</div>
+  <div id="col-ready"></div>
+</div>
+
+<div class="column">
+  <div class="column-header">Entrega</div>
+  <div id="col-delivery"></div>
+</div>
+
 </div>
 
 <script>
