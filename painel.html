@@ -155,6 +155,12 @@
       const div = document.createElement('div');
       div.className = 'card';
 
+      const tempo = Math.floor((Date.now() - new Date(order.created_at)) / 60000);
+      let cor = '';
+
+      if (tempo > 60) cor = 'color:red;font-weight:bold;';
+      else if (tempo > 30) cor = 'color:orange;';
+
       let botoes = '';
       if (order.delivery_status === 'pending' && order.payment_status === 'approved') {
         botoes = `<button class="btn btn-primary" onclick="atualizarStatus('${order.id}','preparing')">Começar produção</button>`;
@@ -163,18 +169,25 @@
       } else if (order.delivery_status === 'ready') {
         botoes = `<button class="btn btn-tertiary" onclick="atualizarStatus('${order.id}','out_for_delivery')">Saiu para entrega</button>`;
       } else if (order.delivery_status === 'out_for_delivery') {
-        botoes = `<button class="btn btn-primary" onclick="atualizarStatus('${order.id}','delivered')">Marcar como entregue</button>`;
-      }
+        botoes = `
+          <button class="btn btn-primary" onclick="atualizarStatus('${order.id}','delivered')">Marcar como entregue</button>
+          <button class="btn" style="background:#25D366;color:#fff;" onclick='abrirWhats(${JSON.stringify(order)})'>
+        WhatsApp
+      </button>
+      `;
+        }
 
       div.innerHTML = `
         <h3>${order.customer_name || 'Cliente sem nome'}</h3>
         <div class="meta">Pedido: ${order.external_reference || '—'}</div>
         <div class="meta">Pagamento: ${traduzirPagamento(order.payment_status)}</div>
+        <div class="meta" style="${cor}">⏱ ${tempoDecorrido(order.created_at)}</div>
         <div class="items">${formatarItens(order.items_json)}</div>
         <div class="address"><strong>Entrega:</strong><br>${order.delivery_address || 'Endereço não informado'}</div>
         <div class="price"><strong>Total:</strong> ${formatarPreco(order.total)}</div>
         <div class="actions">${botoes}</div>
       `;
+
       return div;
     }
 
@@ -210,6 +223,15 @@
       const msg = `Olá ${p.customer_name}, aqui é da Tá na Mão! Seu pedido já está em andamento ✅`;
       window.open(`https://wa.me/55${numero}?text=${encodeURIComponent(msg)}`);
     }
+    function tempoDecorrido(data) {
+      if (!data) return '';
+      const diff = Math.floor((Date.now() - new Date(data)) / 60000);
+  
+      if (diff < 60) return diff + " min";
+      return Math.floor(diff / 60) + "h";
+    }
+  
+    
     
     async function atualizarStatus(id, delivery_status) {
       try {
