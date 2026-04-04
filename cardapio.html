@@ -66,7 +66,8 @@ async function carregar(){
   const el = document.getElementById("lista");
   el.innerHTML = "";
 
-  data.products.forEach(p => {
+  (data.products || []).forEach(p => {
+
     el.innerHTML += `
       <div class="card">
         <input value="${p.name}" id="name-${p.id}">
@@ -105,13 +106,29 @@ async function deletar(id){
 
 async function novo(){
   const name = prompt("Nome do produto:");
-  if(!name) return;
+  if (!name) return;
 
-  await fetch(API+"/products",{
-    method:"POST",
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({ name, price:0 })
-  });
+  try {
+    const res = await fetch(API + "/products", {
+      method: "POST",
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, price: 0 })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok || !data.ok) {
+      alert("Erro ao criar produto");
+      return;
+    }
+
+    await carregar(); // 🔥 garante recarregamento correto
+
+  } catch (e) {
+    console.error(e);
+    alert("Erro de conexão");
+  }
+}
 
   carregar();
 }
