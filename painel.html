@@ -151,28 +151,47 @@ async function criarProduto(){
   const name = document.getElementById("novo-nome").value;
   const description = document.getElementById("novo-desc").value;
   const price = document.getElementById("novo-preco").value;
-  const file = document.getElementById("novo-img").files[0];
+  const file = document.getElementById("novo-img-file").files[0];
 
-  if(!name){ alert("Nome obrigatório"); return; }
+  if (!name) {
+    alert("Nome obrigatório");
+    return;
+  }
 
   let image_url = "";
-  if(file) image_url = await toBase64(file);
 
-  const res = await fetch(API + "/products",{
+  if (file) {
+    image_url = await new Promise((resolve, reject)=>{
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+    });
+  }
+
+  console.log("Imagem enviada:", image_url); // 👈 DEBUG
+
+  const res = await fetch("https://tanamao-backend.onrender.com/api/products",{
     method:"POST",
     headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({ name, description, price:Number(price)||0, image_url })
+    body:JSON.stringify({
+      name,
+      description,
+      price:Number(price)||0,
+      image_url
+    })
   });
 
   const data = await res.json();
 
-  if(!data.ok){
-    alert(data.message || "Erro ao criar");
+  console.log("Resposta backend:", data); // 👈 DEBUG
+
+  if (!data.ok) {
+    alert("Erro ao salvar");
     return;
   }
 
-  document.getElementById("form-box").style.display="none";
-  carregar();
+  carregarProdutos();
 }
 
 // ================= UPDATE =================
