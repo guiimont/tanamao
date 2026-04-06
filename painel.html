@@ -202,7 +202,7 @@ async function salvar(id){
   const image_url = document.getElementById("img-"+id).value;
 
   await fetch(API+"/products/"+id,{
-    method:"PATCH",
+    method:"PUT",
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({ name, description, price, image_url })
   });
