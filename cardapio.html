@@ -108,29 +108,36 @@ async function novo(){
   const name = prompt("Nome do produto:");
   if (!name) return;
 
+  const description = prompt("Descrição:");
+  const price = prompt("Preço (ex: 19.90):");
+  const image_url = prompt("URL da imagem:");
+
   try {
     const res = await fetch(API + "/products", {
       method: "POST",
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, price: 0 })
+      body: JSON.stringify({
+        name,
+        description,
+        price: Number(price) || 0,
+        image_url
+      })
     });
 
     const data = await res.json();
 
-    if (!res.ok || !data.ok) {
+    if (!data.ok) {
       alert("Erro ao criar produto");
       return;
     }
 
-    await carregar();
+    carregar();
 
   } catch (e) {
     console.error(e);
     alert("Erro de conexão");
   }
 }
-
-carregar();
   
   </script>
 
