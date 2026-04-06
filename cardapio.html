@@ -10,12 +10,12 @@ body{font-family:Arial;background:#f4f6f4;margin:0}
 header{background:#3C6E47;color:#fff;padding:16px;text-align:center}
 .container{padding:16px;max-width:900px;margin:auto}
 
-.card{
+.form-card{
   background:#fff;
-  padding:12px;
-  border-radius:10px;
-  margin-bottom:12px;
+  padding:16px;
+  border-radius:12px;
   border:1px solid #ddd;
+  margin-bottom:20px;
 }
 
 input, textarea{
@@ -47,7 +47,21 @@ button{
 <h2>Gestão de Cardápio</h2>
 </header>
 
-<div class="container">
+<div class="form-card">
+  <h3>Novo Produto</h3>
+
+  <input id="novo-nome" placeholder="Nome do produto">
+  <textarea id="novo-desc" placeholder="Descrição"></textarea>
+  <input id="novo-preco" placeholder="Preço (ex: 19.90)">
+  <input id="novo-img" placeholder="URL da imagem">
+
+  <button class="btn-save" onclick="criarProduto()">Salvar Produto</button>
+</div>
+
+<hr style="margin:20px 0;">
+
+<div id="lista"></div>
+
 
 <button class="btn-new" onclick="novo()">+ Novo Produto</button>
 
@@ -104,13 +118,16 @@ async function deletar(id){
   carregar();
 }
 
-async function novo(){
-  const name = prompt("Nome do produto:");
-  if (!name) return;
+async function criarProduto(){
+  const name = document.getElementById("novo-nome").value;
+  const description = document.getElementById("novo-desc").value;
+  const price = document.getElementById("novo-preco").value;
+  const image_url = document.getElementById("novo-img").value;
 
-  const description = prompt("Descrição:");
-  const price = prompt("Preço (ex: 19.90):");
-  const image_url = prompt("URL da imagem:");
+  if (!name) {
+    alert("Nome obrigatório");
+    return;
+  }
 
   try {
     const res = await fetch(API + "/products", {
@@ -131,6 +148,12 @@ async function novo(){
       return;
     }
 
+    // limpa form
+    document.getElementById("novo-nome").value = "";
+    document.getElementById("novo-desc").value = "";
+    document.getElementById("novo-preco").value = "";
+    document.getElementById("novo-img").value = "";
+
     carregar();
 
   } catch (e) {
@@ -138,6 +161,7 @@ async function novo(){
     alert("Erro de conexão");
   }
 }
+
   
   </script>
 
