@@ -6,14 +6,26 @@
 <title>Gestão de Cardápio</title>
 
 <style>
-body{font-family:Arial;background:#f4f6f4;margin:0}
-header{background:#3C6E47;color:#fff;padding:16px;text-align:center}
+body{
+  font-family:Arial;
+  background:#f4f6f4;
+  margin:0;
+}
+
+header{
+  background:#3C6E47;
+  color:#fff;
+  padding:16px;
+  text-align:center;
+}
+
 .container{
   max-width:900px;
   margin:auto;
   padding:24px 16px;
 }
 
+/* CARD FORM */
 .form-card{
   background:#fff;
   padding:24px;
@@ -28,12 +40,11 @@ header{background:#3C6E47;color:#fff;padding:16px;text-align:center}
   color:#3C6E47;
 }
 
-.form-card .field{
+.field{
   margin-bottom:14px;
 }
 
-.form-card input,
-.form-card textarea{
+input, textarea{
   width:100%;
   padding:14px;
   border-radius:10px;
@@ -41,36 +52,34 @@ header{background:#3C6E47;color:#fff;padding:16px;text-align:center}
   font-size:14px;
 }
 
-.btn-save{
-  width:100%;
-  background:#3C6E47;
-  color:#fff;
-  padding:14px;
-  border-radius:12px;
-  font-weight:bold;
-  margin-top:10px;
-}
-
-input, textarea{
-  width:100%;
-  padding:10px;
-  margin-top:6px;
-  margin-bottom:10px;
-  border-radius:8px;
-  border:1px solid #ccc;
-}
-
 button{
-  padding:10px;
+  padding:12px;
   border:none;
-  border-radius:8px;
+  border-radius:10px;
   font-weight:bold;
   cursor:pointer;
 }
 
-.btn-save{background:#3C6E47;color:#fff}
-.btn-delete{background:#b93b3b;color:#fff}
-.btn-new{background:#C9A86A}
+.btn-save{
+  width:100%;
+  background:#3C6E47;
+  color:#fff;
+}
+
+.btn-delete{
+  background:#b93b3b;
+  color:#fff;
+  margin-top:6px;
+}
+
+/* LISTA */
+.card{
+  background:#fff;
+  padding:16px;
+  border-radius:12px;
+  margin-bottom:12px;
+  border:1px solid #ddd;
+}
 </style>
 </head>
 
@@ -80,37 +89,33 @@ button{
 <h2>Gestão de Cardápio</h2>
 </header>
 
-<div class="form-card">
-  <h3>Novo Produto</h3>
+<div class="container">
 
-  <div class="field">
-  <input id="novo-nome" placeholder="Nome do produto">
-</div>
+  <!-- NOVO PRODUTO -->
+  <div class="form-card">
+    <h3>Novo Produto</h3>
 
-<div class="field">
-  <textarea id="novo-desc" placeholder="Descrição"></textarea>
-</div>
+    <div class="field">
+      <input id="novo-nome" placeholder="Nome do produto">
+    </div>
 
-<div class="field">
-  <input id="novo-preco" placeholder="Preço">
-</div>
+    <div class="field">
+      <textarea id="novo-desc" placeholder="Descrição"></textarea>
+    </div>
 
-<div class="field">
-  <input id="novo-img" placeholder="URL da imagem">
-</div>
+    <div class="field">
+      <input id="novo-preco" placeholder="Preço (ex: 19.90)">
+    </div>
 
+    <div class="field">
+      <input id="novo-img" placeholder="URL da imagem">
+    </div>
 
-  <button class="btn-save" onclick="criarProduto()">Salvar Produto</button>
-</div>
+    <button class="btn-save" onclick="criarProduto()">Salvar Produto</button>
+  </div>
 
-<hr style="margin:20px 0;">
-
-<div id="lista"></div>
-
-
-<button class="btn-new" onclick="novo()">+ Novo Produto</button>
-
-<div id="lista"></div>
+  <!-- LISTA -->
+  <div id="lista"></div>
 
 </div>
 
@@ -118,51 +123,36 @@ button{
 
 const API = "https://tanamao-backend.onrender.com/api/operations";
 
+// ================= CARREGAR =================
 async function carregar(){
-  const res = await fetch(API + "/products");
-  const data = await res.json();
+  try {
+    const res = await fetch(API + "/products");
+    const data = await res.json();
 
-  const el = document.getElementById("lista");
-  el.innerHTML = "";
+    const el = document.getElementById("lista");
+    el.innerHTML = "";
 
-  (data.products || []).forEach(p => {
+    (data.products || []).forEach(p => {
+      el.innerHTML += `
+        <div class="card">
+          <input value="${p.name}" id="name-${p.id}">
+          <textarea id="desc-${p.id}">${p.description || ""}</textarea>
+          <input value="${p.price}" id="price-${p.id}">
+          <input value="${p.image_url || ""}" id="img-${p.id}">
 
-    el.innerHTML += `
-      <div class="card">
-        <input value="${p.name}" id="name-${p.id}">
-        <textarea id="desc-${p.id}">${p.description || ""}</textarea>
-        <input value="${p.price}" id="price-${p.id}">
-        <input value="${p.image_url || ""}" id="img-${p.id}">
+          <button class="btn-save" onclick="salvar('${p.id}')">Salvar</button>
+          <button class="btn-delete" onclick="deletar('${p.id}')">Excluir</button>
+        </div>
+      `;
+    });
 
-        <button class="btn-save" onclick="salvar('${p.id}')">Salvar</button>
-        <button class="btn-delete" onclick="deletar('${p.id}')">Excluir</button>
-      </div>
-    `;
-  });
+  } catch (e) {
+    console.error(e);
+    alert("Erro ao carregar produtos");
+  }
 }
 
-async function salvar(id){
-  const name = document.getElementById("name-"+id).value;
-  const description = document.getElementById("desc-"+id).value;
-  const price = document.getElementById("price-"+id).value;
-  const image_url = document.getElementById("img-"+id).value;
-
-  await fetch(API+"/products/"+id,{
-    method:"PATCH",
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({ name, description, price, image_url })
-  });
-
-  alert("Salvo!");
-}
-
-async function deletar(id){
-  if(!confirm("Excluir produto?")) return;
-
-  await fetch(API+"/products/"+id,{ method:"DELETE" });
-  carregar();
-}
-
+// ================= CRIAR =================
 async function criarProduto(){
   const name = document.getElementById("novo-nome").value;
   const description = document.getElementById("novo-desc").value;
@@ -186,24 +176,14 @@ async function criarProduto(){
       })
     });
 
-    const text = await res.text(); // 👈 pega resposta crua
-
-    let data;
-    try {
-      data = JSON.parse(text);
-    } catch {
-      console.error("Resposta inválida:", text);
-      alert("Erro no servidor (resposta inválida)");
-      return;
-    }
+    const data = await res.json();
 
     if (!res.ok || !data.ok) {
-      console.error("Erro backend:", data);
       alert(data.message || "Erro ao criar produto");
       return;
     }
 
-    // limpa form
+    // limpar
     document.getElementById("novo-nome").value = "";
     document.getElementById("novo-desc").value = "";
     document.getElementById("novo-preco").value = "";
@@ -212,16 +192,42 @@ async function criarProduto(){
     await carregar();
 
   } catch (e) {
-    console.error("Erro fetch:", e);
-    alert("Erro de conexão REAL");
+    console.error(e);
+    alert("Erro de conexão");
   }
 }
 
+// ================= SALVAR =================
+async function salvar(id){
+  const name = document.getElementById("name-"+id).value;
+  const description = document.getElementById("desc-"+id).value;
+  const price = document.getElementById("price-"+id).value;
+  const image_url = document.getElementById("img-"+id).value;
 
-  
-  </script>
+  await fetch(API+"/products/"+id,{
+    method:"PATCH",
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({ name, description, price, image_url })
+  });
+
+  alert("Salvo!");
+}
+
+// ================= DELETAR =================
+async function deletar(id){
+  if(!confirm("Excluir produto?")) return;
+
+  await fetch(API+"/products/"+id,{ method:"DELETE" });
+  carregar();
+}
+
+// INIT
+carregar();
+
+</script>
 
 </body>
 </html>
+
 
 
