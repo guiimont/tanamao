@@ -376,20 +376,23 @@
     }
 
     container.innerHTML = PRODS.map(p => `
-      <div class="product">
-        <div class="product-info">
-          <div class="p-nome">${p.name}</div>
-          <div class="p-desc">${p.description || ""}</div>
-          <div class="p-preco">R$ ${Number(p.price).toFixed(2).replace(".", ",")}</div>
-        </div>
-        <div class="qty-wrap">
-          <button onclick="qty('${p.id}',-1)">-</button>
-          <span class="qty-num" id="${p.id}">0</span>
-          <button onclick="qty('${p.id}',1)">+</button>
-        </div>
-      </div>
-    `).join("");
-  }
+  <div class="product">
+
+    ${p.image_url ? `<img src="${p.image_url}" style="width:70px;height:70px;object-fit:cover;border-radius:10px;margin-right:10px;">` : ""}
+
+    <div class="product-info">
+      <div class="p-nome">${p.name}</div>
+      <div class="p-desc">${p.description || ""}</div>
+      <div class="p-preco">R$ ${Number(p.price).toFixed(2).replace(".", ",")}</div>
+    </div>
+
+    <div class="qty-wrap">
+      <button onclick="qty('${p.id}',-1)">-</button>
+      <span class="qty-num" id="${p.id}">0</span>
+      <button onclick="qty('${p.id}',1)">+</button>
+    </div>
+  </div>
+`).join("");
 
   // ── QUANTIDADE ───────────────────────────────────────────────────────────────
   function qty(id, d) {
