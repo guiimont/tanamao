@@ -115,7 +115,7 @@ let LIMITE = 100;
 
 // ================= PEDIDOS =================
 async function carregarPedidos(){
-const res = await fetch(API + "/operations/orders");
+const res = await fetch(API + "/orders");
 const data = await res.json();
 pedidos = data.orders || [];
 renderizar();
@@ -153,19 +153,19 @@ Total: R$ ${Number(p.total||0).toFixed(2)}<br>
 
 // ================= BOTÕES =================
 function botao(p){
-if(p.delivery_status==="pending"){
-return <button onclick="atualizar('${p.id}','preparing')">Produção</button>;
-}
-if(p.delivery_status==="preparing"){
-return <button onclick="atualizar('${p.id}','ready')">Pronto</button>;
-}
-if(p.delivery_status==="ready"){
-return <button onclick="atualizar('${p.id}','out_for_delivery')">Entrega</button>;
-}
-if(p.delivery_status==="out_for_delivery"){
-return <button onclick="atualizar('${p.id}','delivered')">Finalizar</button>;
-}
-return "";
+  if(p.delivery_status==="pending"){
+    return `<button onclick="atualizar('${p.id}','preparing')">Produção</button>`;
+  }
+  if(p.delivery_status==="preparing"){
+    return `<button onclick="atualizar('${p.id}','ready')">Pronto</button>`;
+  }
+  if(p.delivery_status==="ready"){
+    return `<button onclick="atualizar('${p.id}','out_for_delivery')">Entrega</button>`;
+  }
+  if(p.delivery_status==="out_for_delivery"){
+    return `<button onclick="atualizar('${p.id}','delivered')">Finalizar</button>`;
+  }
+  return "";
 }
 
 // ================= UPDATE =================
