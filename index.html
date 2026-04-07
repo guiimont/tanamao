@@ -348,24 +348,39 @@
 
   // ── CARREGAR PRODUTOS DO BACKEND ─────────────────────────────────────────────
   async function carregarProdutos() {
-    try {
-      const res  = await fetch(BACKEND_URL + "/api/products");
-      const data = await res.json();
+  try {
+    const res = await fetch(BACKEND_URL + "/api/products");
 
-      if (!data.ok || !data.products.length) throw new Error("sem produtos");
+    if (!res.ok) throw new Error("erro http");
 
-      PRODS = data.products;
-      PRODS.forEach(p => qtds[p.id] = 0);
-      renderProdutos();
+    const data = await res.json();
 
-    } catch (e) {
-      document.getElementById("produtos-container").innerHTML = `
-        <div class="erro-cardapio">
-          <p>Não foi possível carregar o cardápio.<br>Verifique sua conexão.</p>
-          <button class="btn-retry" onclick="carregarProdutos()">Tentar novamente</button>
-        </div>`;
+    console.log("API:", data); // 👈 DEBUG
+
+    if (!data.ok) throw new Error("api erro");
+
+    PRODS = data.products || [];
+
+    if (!PRODS.length) {
+      document.getElementById("produtos-container").innerHTML =
+        '<div class="erro-cardapio"><p>Cardápio vazio.</p></div>';
+      return;
     }
+
+    PRODS.forEach(p => qtds[p.id] = 0);
+
+    renderProdutos();
+
+  } catch (e) {
+    console.error("ERRO:", e);
+
+    document.getElementById("produtos-container").innerHTML = `
+      <div class="erro-cardapio">
+        <p>Erro ao carregar cardápio.</p>
+      </div>`;
   }
+}
+
 
   function renderProdutos() {
   const container = document.getElementById("produtos-container");
