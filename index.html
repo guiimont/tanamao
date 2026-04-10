@@ -946,35 +946,35 @@
     }
 
     function renderProdutos() {
-      const container = document.getElementById("produtos-container");
+  const container = document.getElementById("produtos-container");
 
-      if (!PRODS.length) {
-        container.innerHTML = '<div class="erro-cardapio"><p>Cardápio em atualização. Volte em breve!</p></div>';
-        return;
-      }
+  if (!PRODS.length) {
+    container.innerHTML = '<div class="erro-cardapio"><p>Cardápio em atualização. Volte em breve!</p></div>';
+    return;
+  }
 
-      container.innerHTML = PRODS.map(p => {
-        const imageSrc = getProductImageSrc(p);
+  container.innerHTML = PRODS.map(p => {
+    const imageSrc = getProductImageSrc(p);
 
-        return `
-          <div class="product">
-            <div class="product-left">
-              ${imageSrc ? `<img src="${imageSrc}" alt="${(p.name || "Produto").replace(/"/g, """)}">` : ""}
-              <div class="product-info">
-                <div class="p-nome">${p.name || ""}</div>
-                <div class="p-desc">${p.description || ""}</div>
-                <div class="p-preco">R$ ${Number(p.price || 0).toFixed(2).replace(".", ",")}</div>
-              </div>
-            </div>
-            <div class="qty-wrap">
-              <button type="button" onclick="qty('${p.id}', -1)">-</button>
-              <span class="qty-num" id="qtd-${p.id}">${qtds[p.id] || 0}</span>
-              <button type="button" onclick="qty('${p.id}', 1)">+</button>
-            </div>
+    return `
+      <div class="product">
+        <div class="product-left">
+          ${imageSrc ? `<img src="${imageSrc}" alt="Produto">` : ""}
+          <div class="product-info">
+            <div class="p-nome">${p.name || ""}</div>
+            <div class="p-desc">${p.description || ""}</div>
+            <div class="p-preco">R$ ${Number(p.price || 0).toFixed(2).replace(".", ",")}</div>
           </div>
-        `;
-      }).join("");
-    }
+        </div>
+        <div class="qty-wrap">
+          <button type="button" onclick="qty('${p.id}', -1)">-</button>
+          <span class="qty-num" id="qtd-${p.id}">${qtds[p.id] || 0}</span>
+          <button type="button" onclick="qty('${p.id}', 1)">+</button>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
 
     function qty(id, d) {
       qtds[id] = Math.max(0, (qtds[id] || 0) + d);
