@@ -1131,74 +1131,82 @@ style="width:80px;height:80px;object-fit:contain;display:block;margin:0 auto
     }
 
     async function finalizarPedido() {
-      if (isSubmittingCheckout) return;
+  // ✅ 1. TRAVA DE SEGURANÇA (Evita cobranças duplicadas)
+  const btn = document.getElementById("btn-pagar");
+  if (isSubmittingCheckout || btn.disabled) return; 
+  
+  ocultarErro();
+  let cliente = clienteAtual;
 
-      ocultarErro();
-
-      let cliente = clienteAtual;
-
-      if (!cliente) {
-        cliente = montarClienteDoFormulario();
-        const erro = validarCliente(cliente);
-        if (erro) {
-          mostrarErro(erro);
-          return;
-        }
-
-        salvarCliente(cliente);
-        checarLogin();
-      }
-
-      const ativos = PRODS.filter(p => (qtds[p.id] || 0) > 0);
-
-      if (!ativos.length) {
-        mostrarErro("Seu carrinho está vazio.");
-        return;
-      }
-
-      if (!pagSel) {
-        mostrarErro("Escolha a forma de pagamento.");
-        return;
-      }
-
-      const payload = {
-        items: ativos.map(p => ({
-          id: p.id,
-          quantity: qtds[p.id]
-        })),
-        paymentMethod: pagSel,
-        customer: {
-          nome: cliente.nome,
-          telefone: cliente.tel || "",
-          endereco: cliente.endereco || {}
-        },
-        source: "site"
-      };
-
-      setBtnLoading();
-
-      try {
-        const response = await fetch(BACKEND_URL + "/api/checkout/create-preference", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-
-        const data = await response.json();
-
-        if (!response.ok || !data.ok || !data.checkoutUrl) {
-          mostrarErro(data.message || "Erro ao gerar pagamento. Tente novamente.");
-          resetBtn();
-          return;
-        }
-
-        window.location.href = data.checkoutUrl;
-      } catch (err) {
-        console.error(err);
-        mostrarErro("Não foi possível conectar ao servidor. Verifique sua conexão.");
-        resetBtn();
-      }
+  if (!cliente) {
+    cliente = montarClienteDoFormulario();
+    const erro = validarCliente(cliente);
+    if (erro) {
+      mostrarErro(erro);
+      return;
     }
+    salvarCliente(cliente);
+    checarLogin();
+  }
+
+  const ativos = PRODS.filter(p => (qtds[p.id] || 0) > 0);
+  if (!ativos.length) {
+    mostrarErro("Seu carrinho está vazio.");
+    return;
+  }
+  if (!pagSel) {
+    mostrarErro("Escolha a forma de pagamento.");
+    return;
+  }
+
+  // ✅ 2. PERSISTÊNCIA DO CARRINHO (Diretriz Técnica)
+  // Salva o estado atual das quantidades antes de sair da página
+  localStorage.setItem("tanamao_carrinho_pendente", JSON.stringify(qtds));
+
+  const payload = {
+    items: ativos.map(p => ({
+      id: p.id,
+      quantity: qtds[p.id]
+    })),
+    paymentMethod: pagSel,
+    customer: {
+      nome: cliente.nome,
+      telefone: cliente.tel || "",
+      endereco: cliente.endereco || {}
+    },
+    source: "site"
+  };
+
+  // ✅ 3. ESTADO DE CARREGAMENTO SEGURO
+  setBtnLoading();
+  // Altera o texto para o padrão solicitado pela arquiteta
+  btn.innerHTML = "🔒 Processando Seguro...";
+
+  try {
+    const response = await fetch(BACKEND_URL + "/api/checkout/create-preference", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await response.json();
+    
+    if (!response.ok || !data.ok || !data.checkoutUrl) {
+      throw new Error(data.message || "Erro ao gerar pagamento.");
+    }
+
+    // Redirecionamento para o Mercado Pago
+    window.location.href = data.checkoutUrl;
+
+  } catch (err) {
+    console.error(err);
+    mostrarErro(err.message || "Não foi possível conectar ao servidor.");
+    
+    // ✅ 4. RECUPERAÇÃO EM CASO DE ERRO
+    resetBtn();
+    btn.innerHTML = "Ir para pagamento"; // Volta ao texto original se falhar
+  }
+}
 
     async function buscarCep() {
       const cep = getVal("m-cep").replace(/[^0-9]/g, "");
