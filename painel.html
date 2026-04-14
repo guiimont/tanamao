@@ -288,13 +288,31 @@ async function carregarFornecedores() {
 async function salvarFornecedor() {
   const name = document.getElementById("f-nome").value;
   const contact = document.getElementById("f-contato").value;
+  
   if(!name) return alert("Nome obrigatório");
-  await fetch(API + "/suppliers", {
-    method: "POST", headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({ name, contact })
-  });
-  alert("Fornecedor cadastrado!");
-  carregarFornecedores();
+
+  try {
+    const res = await fetch(API + "/suppliers", {
+      method: "POST", 
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({ name, contact })
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      alert("Fornecedor cadastrado!");
+      // Limpa os campos após o sucesso
+      document.getElementById("f-nome").value = "";
+      document.getElementById("f-contato").value = "";
+      // Aguarda a recarga da lista antes de qualquer outra ação
+      await carregarFornecedores();
+    } else {
+      alert("Erro ao salvar: " + (data.message || "Tente novamente"));
+    }
+  } catch (err) {
+    alert("Erro de conexão com o servidor");
+  }
 }
 
 async function salvarCompra() {
@@ -305,12 +323,33 @@ async function salvarCompra() {
     total_value: document.getElementById("e-valor").value,
     category: document.getElementById("e-cat").value
   };
+
   if(!body.item_name || !body.total_value) return alert("Preencha os campos!");
-  await fetch(API + "/stock", {
-    method: "POST", headers: {"Content-Type": "application/json"},
-    body: JSON.stringify(body)
-  });
-  alert("Compra registrada!");
+
+  try {
+    const res = await fetch(API + "/stock", {
+      method: "POST", 
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(body)
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      alert("Compra registrada!");
+      // Limpa o formulário de compra
+      document.getElementById("e-item").value = "";
+      document.getElementById("e-qtd").value = "";
+      document.getElementById("e-valor").value = "";
+      
+      // Se você tiver uma função que carrega a lista de compras/estoque, 
+      // chame-a aqui, ex: await carregarHistoricoCompras();
+    } else {
+      alert("Erro ao registrar: " + (data.message || "Verifique os dados"));
+    }
+  } catch (err) {
+    alert("Erro ao conectar com o banco de dados");
+  }
 }
 
 // ================= DASHBOARD FINANCEIRO =================
