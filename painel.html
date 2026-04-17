@@ -323,15 +323,26 @@ async function salvarFornecedor() {
 }
 
 async function salvarCompra() {
+  const supplierId = document.getElementById("e-fornecedor").value;
+  
   const body = {
-    supplier_id: document.getElementById("e-fornecedor").value,
+    // Se o valor for vazio, enviamos null (que o banco aceita) ou avisamos o usuário
+    supplier_id: supplierId === "" ? null : supplierId, 
     item_name: document.getElementById("e-item").value,
     quantity: document.getElementById("e-qtd").value,
     total_value: document.getElementById("e-valor").value,
     category: document.getElementById("e-cat").value
   };
 
-  if(!body.item_name || !body.total_value) return alert("Preencha os campos!");
+  // Validação: Não deixa prosseguir se faltar o básico
+  if(!body.item_name || !body.total_value) {
+    return alert("Preencha os campos Nome do Item e Valor!");
+  }
+
+  // Se o seu banco exige um fornecedor (obrigatório), use esta trava:
+  if(!body.supplier_id) {
+    return alert("Selecione um fornecedor cadastrado!");
+  }
 
   try {
     const res = await fetch(API + "/stock", {
@@ -343,19 +354,23 @@ async function salvarCompra() {
     const data = await res.json();
 
     if (res.ok) {
-      alert("Compra registrada!");
-      // Limpa o formulário de compra
+      alert("Compra registrada com sucesso!");
+      // Limpa os campos
       document.getElementById("e-item").value = "";
       document.getElementById("e-qtd").value = "";
       document.getElementById("e-valor").value = "";
+      document.getElementById("e-fornecedor").value = "";
       
-      // Se você tiver uma função que carrega a lista de compras/estoque, 
-      // chame-a aqui, ex: await carregarHistoricoCompras();
+      // Se tiver a função de recarregar a lista, chame-a aqui
+      if (typeof carregarEstoque === "function") carregarEstoque();
+      
     } else {
-      alert("Erro ao registrar: " + (data.message || "Verifique os dados"));
+      // Aqui o data.message vai mostrar o erro real vindo do backend
+      alert("Erro ao registrar: " + (data.error || data.message || "Verifique os dados"));
     }
   } catch (err) {
-    alert("Erro ao conectar com o banco de dados");
+    console.error("Erro no fetch:", err);
+    alert("Erro ao conectar com o servidor.");
   }
 }
 
@@ -388,7 +403,15 @@ async function atualizarDashboardFinanceiro() {
   document.getElementById("dash-lucro").innerText = fmt(lucro);
 }
 
-// INICIALIZAÇÃO
+function editarLimite() {
+    const valor = prompt("Defina o novo limite diário de pedidos:");
+    if (valor) {
+        // Por enquanto apenas visual, mas já evita o erro de 'not defined'
+        alert("Limite atualizado para: " + valor + " (integração com API pendente)");
+    }
+}
+
+// INICIALIZAÇÃO - Sempre por último
 aplicarPermissoes();
 carregarPedidos();
 setInterval(carregarPedidos, 30000);
