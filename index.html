@@ -1131,13 +1131,13 @@ style="width:80px;height:80px;object-fit:contain;display:block;margin:0 auto
     }
 
     async function finalizarPedido() {
-  // ✅ 1. TRAVA DE SEGURANÇA (Evita cobranças duplicadas)
+  // 1. TRAVA DE SEGURANÇA (Evita cobranças duplicadas)
   const btn = document.getElementById("btn-pagar");
   if (isSubmittingCheckout || btn.disabled) return; 
-  
+
   ocultarErro();
   let cliente = clienteAtual;
-
+  
   if (!cliente) {
     cliente = montarClienteDoFormulario();
     const erro = validarCliente(cliente);
@@ -1154,13 +1154,13 @@ style="width:80px;height:80px;object-fit:contain;display:block;margin:0 auto
     mostrarErro("Seu carrinho está vazio.");
     return;
   }
+  
   if (!pagSel) {
     mostrarErro("Escolha a forma de pagamento.");
     return;
   }
 
-  // ✅ 2. PERSISTÊNCIA DO CARRINHO (Diretriz Técnica)
-  // Salva o estado atual das quantidades antes de sair da página
+  // 2. PERSISTÊNCIA DO CARRINHO
   localStorage.setItem("tanamao_carrinho_pendente", JSON.stringify(qtds));
 
   const payload = {
@@ -1177,34 +1177,54 @@ style="width:80px;height:80px;object-fit:contain;display:block;margin:0 auto
     source: "site"
   };
 
-  // ✅ 3. ESTADO DE CARREGAMENTO SEGURO
+  // 3. ESTADO DE CARREGAMENTO
   setBtnLoading();
-  // Altera o texto para o padrão solicitado pela arquiteta
-  btn.innerHTML = "🔒 Processando Seguro...";
+  // Texto amigável de processamento
+  btn.innerHTML = '<span class="spinner"></span> Processando Seguro...';
 
   try {
+    // Definimos um Timeout para erros de rede demorados
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 segundos
+
     const response = await fetch(BACKEND_URL + "/api/checkout/create-preference", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
+      signal: controller.signal
     });
 
+    clearTimeout(timeoutId);
     const data = await response.json();
     
-    if (!response.ok || !data.ok || !data.checkoutUrl) {
-      throw new Error(data.message || "Erro ao gerar pagamento.");
+    // 4. TRATAMENTO DE ERROS DE NEGÓCIO (Ex: Limite de pedidos atingido)
+    if (!response.ok || !data.ok) {
+      // Aqui o backend envia "Limite de pedidos diários atingido"
+      throw new Error(data.message || "Não foi possível gerar o pagamento.");
     }
 
-    // Redirecionamento para o Mercado Pago
+    if (!data.checkoutUrl) {
+      throw new Error("Link de pagamento não recebido.");
+    }
+
+    // Sucesso: Redirecionamento
     window.location.href = data.checkoutUrl;
 
   } catch (err) {
-    console.error(err);
-    mostrarErro(err.message || "Não foi possível conectar ao servidor.");
+    console.error("[Checkout Failure]:", err);
     
-    // ✅ 4. RECUPERAÇÃO EM CASO DE ERRO
+    // 5. TRATAMENTO DE ERROS DE REDE OU TIMEOUT
+    let msgAmigavel = err.message;
+    
+    if (err.name === 'AbortError' || err.message.includes("Failed to fetch")) {
+      msgAmigavel = "Erro de conexão. O servidor pode estar demorando a responder. Tente novamente.";
+    }
+
+    mostrarErro(msgAmigavel);
+    
+    // 6. RECUPERAÇÃO E UNLOCK (Garante que o cliente possa tentar de novo)
     resetBtn();
-    btn.innerHTML = "Ir para pagamento"; // Volta ao texto original se falhar
+    btn.innerHTML = "Tentar novamente"; 
   }
 }
 
