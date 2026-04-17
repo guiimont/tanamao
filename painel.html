@@ -234,7 +234,14 @@ async function carregarPedidos(){
 }
 
 function renderizar(){
-  const filter = (status) => pedidos.filter(p => p.delivery_status === status || (status === 'pending' && !p.delivery_status && p.payment_status === 'approved'));
+  // Filtramos a lista base para remover o que já foi entregue ou cancelado antes de distribuir nas colunas
+  const ativos = pedidos.filter(p => p.delivery_status !== 'delivered' && p.delivery_status !== 'canceled');
+
+  const filter = (status) => ativos.filter(p => 
+    p.delivery_status === status || 
+    (status === 'pending' && !p.delivery_status && p.payment_status === 'approved')
+  );
+
   renderCol("col-paid", filter('pending'));
   renderCol("col-preparing", filter('preparing'));
   renderCol("col-ready", filter('ready'));
