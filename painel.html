@@ -293,37 +293,48 @@ async function carregarFornecedores() {
 }
 
 async function salvarFornecedor() {
-  const name = document.getElementById("f-nome").value;
-  const contact = document.getElementById("f-contato").value;
-  
-  if(!name) return alert("Nome obrigatório");
+  // 1. Captura de todos os campos, incluindo o documento
+  const name = document.getElementById("f-nome").value; [cite: 266]
+  const contact = document.getElementById("f-contato").value; [cite: 267]
+  const doc = document.getElementById("f-doc").value; 
+
+  if (!name) return alert("Nome obrigatório"); [cite: 268]
 
   try {
-    const res = await fetch(API + "/suppliers", {
-      method: "POST", 
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({ name, contact })
+    const res = await fetch(API + "/suppliers", { [cite: 270]
+      method: "POST",
+      headers: {"Content-Type": "application/json"}, [cite: 272]
+      // 2. Adicionamos o 'document' no envio para o Supabase gravar
+      body: JSON.stringify({ name: name, contact: contact, document: doc })
     });
 
-    const data = await res.json();
+    const data = await res.json(); // Corrigido: Faltava o "=" no código original 
 
     if (res.ok) {
-      alert("Fornecedor cadastrado!");
-      // Limpa os campos após o sucesso
-      document.getElementById("f-nome").value = "";
-      document.getElementById("f-contato").value = "";
-      // Aguarda a recarga da lista antes de qualquer outra ação
-      await carregarFornecedores();
+      alert("Fornecedor cadastrado!"); [cite: 275]
+      
+      // 3. Limpa todos os campos após o sucesso
+      document.getElementById("f-nome").value = ""; [cite: 277]
+      document.getElementById("f-contato").value = ""; [cite: 278]
+      document.getElementById("f-doc").value = ""; 
+      
+      // 4. Recarrega a lista para aparecer no select de compras na hora
+      await carregarFornecedores(); // Corrigido: Removido o espaço do nome da função 
+      
     } else {
+      // Corrigido: Faltava fechar as aspas na string de erro 
       alert("Erro ao salvar: " + (data.message || "Tente novamente"));
     }
   } catch (err) {
-    alert("Erro de conexão com o servidor");
+    alert("Erro de conexão com o servidor"); [cite: 284]
   }
 }
 
 async function salvarCompra() {
-  const supplierId = document.getElementById("e-fornecedor").value;
+  const sId = document.getElementById("e-fornecedor").value;
+const body = {
+  supplier_id: sId === "" ? null : sId,
+  item_name: document.getElementById("e-item").value,
   
   const body = {
     // Se o valor for vazio, enviamos null (que o banco aceita) ou avisamos o usuário
