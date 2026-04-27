@@ -387,6 +387,38 @@
 
     <div class="admin-card" style="margin-top: 20px;">
       <h3>Compras registradas</h3>
+      <div class="summary-bar" style="margin-top: 12px;">
+  <div class="muted"><strong>Relatórios do período</strong></div>
+  <div><strong>Total:</strong> <span id="rel-total">R$ 0,00</span></div>
+</div>
+
+<div class="table-wrap" style="margin-bottom:14px;">
+  <table style="min-width: 820px;">
+    <thead>
+      <tr>
+        <th>Categoria</th>
+        <th style="text-align:right;">Total</th>
+      </tr>
+    </thead>
+    <tbody id="rel-categorias">
+      <tr><td colspan="2">Aguardando filtros...</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="table-wrap" style="margin-bottom:14px;">
+  <table style="min-width: 820px;">
+    <thead>
+      <tr>
+        <th>Top Fornecedores</th>
+        <th style="text-align:right;">Total</th>
+      </tr>
+    </thead>
+    <tbody id="rel-fornecedores">
+      <tr><td colspan="2">Aguardando filtros...</td></tr>
+    </tbody>
+  </table>
+</div>
 
       <div class="filters-grid">
         <div>
@@ -874,6 +906,7 @@
   const tbody = document.getElementById("tbody-compras");
   const resumo = document.getElementById("compras-resumo");
   const totalEl = document.getElementById("compras-total");
+      renderRelatoriosCompras(entries);  
 
   const total = (entries || []).reduce((acc, e) => acc + Number(e.total_value || 0), 0);
   if (totalEl) totalEl.textContent = fmt(total);
@@ -934,6 +967,51 @@
     const ids = ["filtro-fornecedor", "filtro-categoria", "filtro-de", "filtro-ate"];
     if (ids.includes(e.target?.id)) aplicarFiltrosCompras();
   });
+
+  function renderRelatoriosCompras(entries) {
+  const total = (entries || []).reduce((acc, e) => acc + Number(e.total_value || 0), 0);
+  const elTotal = document.getElementById("rel-total");
+  if (elTotal) elTotal.textContent = fmt(total);
+
+  // Totais por categoria
+  const byCat = new Map();
+  for (const e of (entries || [])) {
+    const cat = e.category || "Outros";
+    byCat.set(cat, (byCat.get(cat) || 0) + Number(e.total_value || 0));
+  }
+
+  const catRows = Array.from(byCat.entries())
+    .sort((a,b) => b[1] - a[1])
+    .map(([cat, sum]) => `
+      <tr>
+        <td>${cat}</td>
+        <td style="text-align:right;"><strong>${fmt(sum)}</strong></td>
+      </tr>
+    `).join("");
+
+  const elCats = document.getElementById("rel-categorias");
+  if (elCats) elCats.innerHTML = catRows || `<tr><td colspan="2">Sem dados</td></tr>`;
+
+  // Top fornecedores
+  const bySup = new Map();
+  for (const e of (entries || [])) {
+    const name = e.suppliers?.name || "—";
+    bySup.set(name, (bySup.get(name) || 0) + Number(e.total_value || 0));
+  }
+
+  const supRows = Array.from(bySup.entries())
+    .sort((a,b) => b[1] - a[1])
+    .slice(0, 5)
+    .map(([name, sum]) => `
+      <tr>
+        <td>${name}</td>
+        <td style="text-align:right;"><strong>${fmt(sum)}</strong></td>
+      </tr>
+    `).join("");
+
+  const elSup = document.getElementById("rel-fornecedores");
+  if (elSup) elSup.innerHTML = supRows || `<tr><td colspan="2">Sem dados</td></tr>`;
+}
 
   // ================= CARDÁPIO & ESTOQUE (ADMIN) =================
   function fileToBase64(file){
