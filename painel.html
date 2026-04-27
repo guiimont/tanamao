@@ -449,86 +449,90 @@
 
   <!-- ABA CARDÁPIO & ESTOQUE -->
   <div id="aba-cardapio" class="tab-content">
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px;">
-      <div class="admin-card">
-        <h3 id="cardapio-form-title">Cadastrar produto</h3>
+  <div style="display: grid; grid-template-columns: 1fr; gap: 20px;">
+    
+    <!-- PRODUTOS (primeiro) -->
+    <div class="admin-card">
+      <h3>Produtos (Cardápio + Estoque)</h3>
 
-        <input type="hidden" id="p-id">
-
-        <label>Nome</label>
-        <input id="p-nome" placeholder="Nome do produto">
-
-        <label>Descrição</label>
-        <textarea id="p-desc" placeholder="Descrição"></textarea>
-
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-          <div>
-            <label>Preço (R$)</label>
-            <input id="p-preco" type="number" step="0.01" placeholder="Ex: 19.90">
-          </div>
-          <div>
-            <label>Ordem</label>
-            <input id="p-ordem" type="number" step="1" placeholder="0" value="0">
-          </div>
-        </div>
-
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-          <div>
-            <label>Ativo</label>
-            <select id="p-ativo">
-              <option value="true">Sim</option>
-              <option value="false">Não</option>
-            </select>
-          </div>
-
-          <div>
-            <label>Imagem</label>
-            <input id="p-img" type="file" accept="image/*">
-          </div>
-        </div>
-
-        <div class="small" style="margin-top:6px;">
-          Dica: imagens grandes podem demorar. O backend otimiza em WebP automaticamente.
-        </div>
-
-        <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;">
-          <button class="tab-btn" style="background: var(--dourado); color:white;" onclick="salvarProduto()">💾 Salvar</button>
-          <button class="tab-btn" style="background:#fff;border:1px solid #ddd;color:#333;" onclick="limparFormProduto()">Limpar</button>
-        </div>
+      <div class="topbar-btns" style="justify-content:flex-end;">
+        <button class="tab-btn" style="background: var(--dourado); color:white;" onclick="carregarProdutosAdmin()">🔄 Atualizar</button>
       </div>
 
-      <div class="admin-card">
-        <h3>Produtos (Cardápio + Estoque)</h3>
+      <div class="table-wrap">
+        <table style="min-width: 1040px;">
+          <thead>
+            <tr>
+              <th>Foto</th>
+              <th>Produto</th>
+              <th>Ativo</th>
+              <th style="text-align:right;">Preço</th>
+              <th style="text-align:right;">Estoque</th>
+              <th style="text-align:right;">Ordem</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-produtos">
+            <tr><td colspan="7">Carregando...</td></tr>
+          </tbody>
+        </table>
+      </div>
 
-        <div class="topbar-btns" style="justify-content:flex-end;">
-          <button class="tab-btn" style="background: var(--dourado); color:white;" onclick="carregarProdutosAdmin()">🔄 Atualizar</button>
-        </div>
-
-        <div class="table-wrap">
-          <table style="min-width: 1040px;">
-            <thead>
-              <tr>
-                <th>Foto</th>
-                <th>Produto</th>
-                <th>Ativo</th>
-                <th style="text-align:right;">Preço</th>
-                <th style="text-align:right;">Estoque</th>
-                <th style="text-align:right;">Ordem</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody id="tbody-produtos">
-              <tr><td colspan="7">Carregando...</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="small" style="margin-top:10px;">
-          Ajuste de estoque: use delta (+/-). Ex.: <b>+10</b> para produzir 10 unidades, <b>-2</b> para perdas/ajustes.
-        </div>
+      <div class="small" style="margin-top:10px;">
+        Ajuste de estoque: use delta (+/-). Ex.: <b>+10</b> para produzir 10 unidades, <b>-2</b> para perdas/ajustes.
       </div>
     </div>
+
+    <!-- CADASTRAR/EDITAR (depois) -->
+    <div class="admin-card">
+      <h3 id="cardapio-form-title">Cadastrar produto</h3>
+
+      <input type="hidden" id="p-id">
+
+      <label>Nome</label>
+      <input id="p-nome" placeholder="Nome do produto">
+
+      <label>Descrição</label>
+      <textarea id="p-desc" placeholder="Descrição"></textarea>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div>
+          <label>Preço (R$)</label>
+          <input id="p-preco" type="number" step="0.01" placeholder="Ex: 19.90">
+        </div>
+        <div>
+          <label>Ordem</label>
+          <input id="p-ordem" type="number" step="1" placeholder="0" value="0">
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div>
+          <label>Ativo</label>
+          <select id="p-ativo">
+            <option value="true">Sim</option>
+            <option value="false">Não</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Imagem</label>
+          <input id="p-img" type="file" accept="image/*">
+        </div>
+      </div>
+
+      <div class="small" style="margin-top:6px;">
+        Dica: imagens grandes podem demorar. O backend otimiza em WebP automaticamente.
+      </div>
+
+      <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;">
+        <button class="tab-btn" style="background: var(--dourado); color:white;" onclick="salvarProduto()">💾 Salvar</button>
+        <button class="tab-btn" style="background:#fff;border:1px solid #ddd;color:#333;" onclick="limparFormProduto()">Limpar</button>
+      </div>
+    </div>
+
   </div>
+</div>
 
   <!-- ABA CONFIG -->
   <div id="aba-config" class="tab-content">
