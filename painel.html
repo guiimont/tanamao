@@ -401,7 +401,7 @@ const custosFixos = (dataCosts.data || []).reduce((acc, c) => acc +
 Number(c.value), 0);
 const resStock = await fetch(API + "/stock");
 const dataStock = await resStock.json();
-const compras = (dataStock.data || []).reduce((acc, c) => acc +
+const compras = (dataStock.entries || []).reduce((acc, c) => acc +
 Number(c.total_value), 0);
 const lucro = bruto - taxas - custosFixos - compras;
 document.getElementById("dash-bruto").innerText = fmt(bruto);
