@@ -492,6 +492,35 @@
         <button class="tab-btn" style="background: var(--dourado); color:white;" onclick="carregarProdutosAdmin()">🔄 Atualizar</button>
       </div>
 
+      <div class="admin-card" style="margin-bottom:20px;">
+  <h3>Produção do dia (lote)</h3>
+
+  <div class="muted" style="margin-bottom:10px;">
+    Preencha as quantidades produzidas e clique em “Salvar lote”. (Somente qty > 0 será lançado.)
+  </div>
+
+  <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; margin-bottom:10px;">
+    <input id="prod-note" placeholder="Observação (opcional, ex: Lote manhã)" style="max-width:420px;">
+    <button class="btn-secondary" onclick="preencherTabelaProducao()">Carregar produtos</button>
+    <button class="tab-btn" style="background: var(--dourado); color:white;" onclick="salvarProducaoLote()">Salvar lote</button>
+  </div>
+
+  <div class="table-wrap">
+    <table style="min-width: 900px;">
+      <thead>
+        <tr>
+          <th>Produto</th>
+          <th style="text-align:right;">Estoque atual</th>
+          <th style="text-align:right;">Produzido hoje (+)</th>
+        </tr>
+      </thead>
+      <tbody id="tbody-producao">
+        <tr><td colspan="3">Clique em “Carregar produtos”.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
       <div class="table-wrap">
         <table style="min-width: 1040px;">
           <thead>
@@ -1195,6 +1224,74 @@
       `;
     }).join("");
   }
+
+  function preencherTabelaProducao(){
+  const tbody = document.getElementById("tbody-producao");
+  if (!tbody) return;
+
+  if (!PRODUTOS_ADMIN || !PRODUTOS_ADMIN.length) {
+    tbody.innerHTML = `<tr><td colspan="3">Carregue os produtos primeiro (Atualizar).</td></tr>`;
+    return;
+  }
+
+  const ativos = PRODUTOS_ADMIN.filter(p => p.active);
+
+  tbody.innerHTML = ativos.map(p => {
+    const estoque = Number(p.stock_quantity || 0);
+    return `
+      <tr>
+        <td><strong>${p.name || ""}</strong></td>
+        <td style="text-align:right;">${estoque}</td>
+        <td style="text-align:right;">
+          <input id="prod-qty-${p.id}" type="number" step="1" min="0"
+                 placeholder="0"
+                 style="width:120px; padding:8px; border:1px solid #ddd; border-radius:10px; text-align:right;">
+        </td>
+      </tr>
+    `;
+  }).join("");
+}
+
+async function salvarProducaoLote(){
+  const note = (document.getElementById("prod-note")?.value || "").trim();
+
+  const ativos = (PRODUTOS_ADMIN || []).filter(p => p.active);
+
+  const items = [];
+  for (const p of ativos) {
+    const el = document.getElementById(`prod-qty-${p.id}`);
+    if (!el) continue;
+
+    const qty = Number(el.value);
+    if (Number.isFinite(qty) && qty > 0) {
+      items.push({ product_id: p.id, qty, note });
+    }
+  }
+
+  if (items.length === 0) {
+    return alert("Nenhuma quantidade preenchida (use valores > 0).");
+  }
+
+  const res = await fetch(`${API}/operations/production/batch`, {
+    method: "POST",
+    headers: { "Content-Type":"application/json" },
+    body: JSON.stringify({ items, note })
+  });
+
+  const data = await res.json();
+  if (!res.ok || !data.ok) {
+    alert(data.message || "Erro ao salvar produção.");
+    return;
+  }
+
+  alert(`Produção lançada! (${data.inserted} item(ns))`);
+
+  // recarrega produtos para atualizar estoque na tela
+  await carregarProdutosAdmin();
+
+  // limpa inputs
+  document.getElementById("prod-note").value = "";
+}
 
   async function toggleAtivo(id, isActive){
     try{
